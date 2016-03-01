@@ -28,11 +28,7 @@ bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
     } else printf("[success] testAsibot acquired robot interface\n");
     pos->setPositionMode();
 
-    printf("test positionMove(1,-35)\n");
-    pos->positionMove(1, -35);
-
-    printf("Delaying 5 seconds...\n");
-    yarp::os::Time::delay(5);
+    phase = false;
 
     return true;
 }
@@ -56,8 +52,21 @@ double ArmSwing::getPeriod()
 
 bool ArmSwing::updateModule()
 {
+    if(phase)
+    {
+        pos->positionMove(0, 10);
+    }
+    else
+    {
+        pos->positionMove(0, 10);
+    }
+
     return true;
 }
 
 /************************************************************************/
+
 }  // namespace teo
+
+//printf("test positionMove(1,-35)\n");
+//yarp::os::Time::delay(5);

@@ -18,6 +18,7 @@ private:
      yarp::dev::PolyDriver dd;
      yarp::dev::IPositionControl *pos;
 
+     bool phase;
 };
 
 }  // namespace teo
