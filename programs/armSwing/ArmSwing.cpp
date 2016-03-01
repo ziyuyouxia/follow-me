@@ -13,7 +13,6 @@ bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
     options.put("device","remote_controlboard");
     options.put("remote","/teo/leftArm");
     options.put("local","/local");
-    yarp::dev::PolyDriver dd;
     dd.open(options);
     if(!dd.isValid()) {
       printf("RaveBot device not available.\n");
@@ -22,7 +21,6 @@ bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
       return 1;
     }
 
-    yarp::dev::IPositionControl *pos;
     bool ok = dd.view(pos);
     if (!ok) {
         printf("[warning] Problems acquiring robot interface\n");
@@ -43,6 +41,7 @@ bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
 
 bool ArmSwing::interruptModule()
 {
+    dd.close();
     return true;
 }
 

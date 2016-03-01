@@ -14,6 +14,10 @@ private:
      bool interruptModule();
      double getPeriod();
      bool updateModule();
+
+     yarp::dev::PolyDriver dd;
+     yarp::dev::IPositionControl *pos;
+
 };
 
 }  // namespace teo
