@@ -9,24 +9,41 @@ namespace teo
 
 bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
 {
-    yarp::os::Property options;
-    options.put("device","remote_controlboard");
-    options.put("remote","/teo/leftArm");
-    options.put("local","/local");
-    dd.open(options);
-    if(!dd.isValid()) {
-      printf("RaveBot device not available.\n");
-      dd.close();
+    yarp::os::Property leftArmOptions;
+    leftArmOptions.put("device","remote_controlboard");
+    leftArmOptions.put("remote","/teo/leftArm");
+    leftArmOptions.put("local","/local");
+    leftArmDevice.open(leftArmOptions);
+    if(!leftArmDevice.isValid()) {
+      printf("/teo/leftArm device not available.\n");
+      leftArmDevice.close();
       yarp::os::Network::fini();
       return 1;
     }
 
-    bool ok = dd.view(pos);
-    if (!ok) {
-        printf("[warning] Problems acquiring robot interface\n");
+    if ( ! leftArmDevice.view(leftArmPos) ) {
+        printf("[warning] Problems acquiring leftArmPos interface\n");
         return false;
-    } else printf("[success] testAsibot acquired robot interface\n");
-    pos->setPositionMode();
+    } else printf("[success] Acquired leftArmPos interface\n");
+    leftArmPos->setPositionMode();
+
+    yarp::os::Property rightArmOptions;
+    rightArmOptions.put("device","remote_controlboard");
+    rightArmOptions.put("remote","/teo/rightArm");
+    rightArmOptions.put("local","/local");
+    leftArmDevice.open(rightArmOptions);
+    if(!leftArmDevice.isValid()) {
+      printf("/teo/leftArm device not available.\n");
+      leftArmDevice.close();
+      yarp::os::Network::fini();
+      return 1;
+    }
+
+    if ( ! rightArmDevice.view(rightArmPos) ) {
+        printf("[warning] Problems acquiring rightArmPos interface\n");
+        return false;
+    } else printf("[success] Acquired rightArmPos interface\n");
+    rightArmPos->setPositionMode();
 
     phase = false;
 
@@ -37,7 +54,7 @@ bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
 
 bool ArmSwing::interruptModule()
 {
-    dd.close();
+    leftArmDevice.close();
     return true;
 }
 
@@ -45,20 +62,23 @@ bool ArmSwing::interruptModule()
 
 double ArmSwing::getPeriod()
 {
-    return 2.0; // Fixed, in seconds, the slow thread that calls updateModule below
+    return 5.0; // Fixed, in seconds, the slow thread that calls updateModule below
 }
 
 /************************************************************************/
 
 bool ArmSwing::updateModule()
 {
+    printf("Entered updateModule...\n");
     if(phase)
     {
-        pos->positionMove(0, 10);
+        leftArmPos->positionMove(0, 10);
+        rightArmPos->positionMove(0, 10);
     }
     else
     {
-        pos->positionMove(0, 10);
+        leftArmPos->positionMove(0, -10);
+        rightArmPos->positionMove(0, -10);
     }
 
     return true;
@@ -68,5 +88,3 @@ bool ArmSwing::updateModule()
 
 }  // namespace teo
 
-//printf("test positionMove(1,-35)\n");
-//yarp::os::Time::delay(5);

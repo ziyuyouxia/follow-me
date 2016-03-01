@@ -15,8 +15,10 @@ private:
      double getPeriod();
      bool updateModule();
 
-     yarp::dev::PolyDriver dd;
-     yarp::dev::IPositionControl *pos;
+     yarp::dev::PolyDriver leftArmDevice;
+     yarp::dev::PolyDriver rightArmDevice;
+     yarp::dev::IPositionControl *leftArmPos;
+     yarp::dev::IPositionControl *rightArmPos;
 
      bool phase;
 };
