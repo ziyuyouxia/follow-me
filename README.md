@@ -1,2 +1,4 @@
 # followMe
-followMe demo
+
+Robot face following demo.
+
