@@ -31,10 +31,10 @@ bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
     rightArmOptions.put("device","remote_controlboard");
     rightArmOptions.put("remote","/teo/rightArm");
     rightArmOptions.put("local","/armSwing/teo/rightArm");
-    leftArmDevice.open(rightArmOptions);
-    if(!leftArmDevice.isValid()) {
-      printf("/teo/leftArm device not available.\n");
-      leftArmDevice.close();
+    rightArmDevice.open(rightArmOptions);
+    if(!rightArmDevice.isValid()) {
+      printf("/teo/rightArm device not available.\n");
+      rightArmDevice.close();
       yarp::os::Network::fini();
       return 1;
     }
@@ -72,13 +72,15 @@ bool ArmSwing::updateModule()
     printf("Entered updateModule...\n");
     if(phase)
     {
-        leftArmPos->positionMove(0, 10);
-        rightArmPos->positionMove(0, 10);
+        leftArmPos->positionMove(0, 20);
+        rightArmPos->positionMove(1, -20);  // open
+        phase = false;
     }
     else
     {
-        leftArmPos->positionMove(0, -10);
-        rightArmPos->positionMove(0, -10);
+        leftArmPos->positionMove(0, -20);
+        rightArmPos->positionMove(1, 0);  // neutral (close)
+        phase = true;
     }
 
     return true;
