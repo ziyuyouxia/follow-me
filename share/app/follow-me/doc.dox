@@ -1,8 +1,8 @@
 /**
-@ingroup  teo_applications
+@ingroup  follow-me_applications
 \defgroup teo_follow-me follow-me App
 
-@brief An application that launches \ref dialogueManager1 and follow-me programs.
+@brief An application that launches follow-me programs: \ref fmArmSwing, \ref fmDialogueManager, \ref fmExecutionCore.
 
 \image html follow-me-app.png
 
