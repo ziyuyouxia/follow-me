@@ -1,0 +1,33 @@
+
+/**
+@brief The main, catch-all namespace for TEO.
+ */
+namespace teo {}
+
+/**
+ * \defgroup follow-me_libraries follow-me Libraries
+ *
+ * @brief follow-me libraries.
+ *
+ */
+
+/**
+ * \defgroup follow-me_programs follow-me Programs
+ *
+ * @brief follow-me programs.
+ */
+
+/**
+ * \defgroup follow-me_applications follow-me Applications (Collections of Programs)
+ *
+ * @brief follow-me applications (collections of programs).
+ */
+
+/**
+ * \defgroup follow-me_examples follow-me Examples
+ *
+ * @brief follow-me examples.
+ */
+
+
+
