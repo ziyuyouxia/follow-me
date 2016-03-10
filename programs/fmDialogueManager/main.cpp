@@ -2,14 +2,14 @@
 
 /**
  * 
- * @ingroup teo_programs
+ * @ingroup follow-me_programs
  * \defgroup fmDialogueManager fmDialogueManager
  *
  * @brief Creates an instance of teo::FmDialogueManager.
  *
  * @section fmDialogueManager_legal Legal
  *
- * Copyright: 2013 (C) Universidad Carlos III de Madrid
+ * Copyright: 2016 (C) Universidad Carlos III de Madrid
  *
  * Author: <a href="http://roboticslab.uc3m.es/roboticslab/persona.php?id_pers=72">Juan G. Victores</a>
  *
@@ -21,8 +21,6 @@
  * This file can be edited at fmDialogueManager
  *
  */
-
-#include <yarp/os/all.h>
 
 #include "FmDialogueManager.hpp"
 

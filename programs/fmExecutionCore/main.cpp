@@ -2,14 +2,14 @@
 
 /**
  *
- * @ingroup teo_body_programs
+ * @ingroup follow-me_programs
  * \defgroup fmExecutionCore fmExecutionCore
  *
  * @brief Creates an instance of teo::FmExecutionCore.
  *
  * @section fmExecutionCore_legal Legal
  *
- * Copyright: 2015 (C) Universidad Carlos III de Madrid
+ * Copyright: 2016 (C) Universidad Carlos III de Madrid
  *
  * Author: <a href="http://roboticslab.uc3m.es/roboticslab/persona.php?id_pers=72">Juan G. Victores</a>
  *
