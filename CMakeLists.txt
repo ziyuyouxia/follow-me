@@ -14,13 +14,14 @@ endif(COMMAND cmake_policy)
 project(FOLLOW_ME)
 
 ### options: cpp libraries
-option(ENABLE_ExampleLibrary "Choose if you want to compile ExampleLibrary" TRUE)
+#option(ENABLE_ExampleLibrary "Choose if you want to compile ExampleLibrary" TRUE)
 
 ### options: cpp programs
-option(ENABLE_exampleProgram "Choose if you want to compile exampleProgram" TRUE)
+option(ENABLE_fmDialogueManager "Choose if you want to compile fmDialogueManager" TRUE)
+option(ENABLE_fmExecutionCore "Choose if you want to compile fmExecutionCore" TRUE)
 
 ### options: force default
-option(ENABLE_exampleExtraOption "Enable/disable option exampleExtraOption" TRUE)
+#option(ENABLE_exampleExtraOption "Enable/disable option exampleExtraOption" TRUE)
 
 if(MSVC)
   MESSAGE(STATUS "Running on windows")    
