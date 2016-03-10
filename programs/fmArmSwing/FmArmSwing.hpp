@@ -1,5 +1,8 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
+#ifndef __FM_ARM_SWING_HPP__
+#define __FM_ARM_SWING_HPP__
+
 #include <yarp/os/all.h>
 #include <yarp/dev/all.h>
 
@@ -24,3 +27,5 @@ private:
 };
 
 }  // namespace teo
+
+#endif  // __FM_ARM_SWING_HPP__
