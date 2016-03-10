@@ -1,5 +1,5 @@
 <application>
-<name>followMe App</name>
+<name>follow-me App</name>
     <module>
         <name>dialogueManager1</name>
         <node>localhost</node>

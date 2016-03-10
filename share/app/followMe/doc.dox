@@ -1,10 +1,10 @@
 /**
 @ingroup  teo_applications
-\defgroup teo_followMe followMe App
+\defgroup teo_follow-me follow-me App
 
-@brief An application that launches \ref dialogueManager1 and followMe programs.
+@brief An application that launches \ref dialogueManager1 and follow-me programs.
 
-\image html followMe-app.png
+\image html follow-me-app.png
 
 \section Legal
 
@@ -16,14 +16,14 @@ CopyPolicy: Released under the terms of the LGPLv2.1 or later, see license/LGPL.
 
 \section Installation
 
-\section running_followMe_App Running (assuming correct installation)
+\section running_follow-me_App Running (assuming correct installation)
 
 First we must run a YARP name server if it is not running in our current namespace:
 \verbatim
 [on terminal 1] yarp server
 \endverbatim
 
-Browse to app and run the yarmanager. The followMe App should be available.
+Browse to app and run the yarmanager. The follow-me App should be available.
 \verbatim
 [on terminal 2] cd repos/teo-main/share
 [on terminal 2] yarpmanager
