@@ -2,4 +2,5 @@
 # Authors: Juan G Victores
 
 add_subdirectory(fmArmSwing)
+add_subdirectory(fmDialogueManager)
 
