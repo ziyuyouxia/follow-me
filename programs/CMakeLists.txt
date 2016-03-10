@@ -2,4 +2,5 @@
 # Authors: Juan G Victores
 
 #add_subdirectory(exampleProgram)
+add_subdirectory(fmArmSwing)
 

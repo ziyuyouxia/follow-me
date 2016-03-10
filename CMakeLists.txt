@@ -17,6 +17,7 @@ project(FOLLOW_ME)
 #option(ENABLE_ExampleLibrary "Choose if you want to compile ExampleLibrary" TRUE)
 
 ### options: cpp programs
+option(ENABLE_fmArmSwing "Choose if you want to compile fmArmSwing" TRUE)
 option(ENABLE_fmDialogueManager "Choose if you want to compile fmDialogueManager" TRUE)
 option(ENABLE_fmExecutionCore "Choose if you want to compile fmExecutionCore" TRUE)
 
