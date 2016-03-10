@@ -8,7 +8,7 @@
 
 \section Legal
 
-Copyright: 2015 (C) Universidad Carlos III de Madrid
+Copyright: 2016 (C) Universidad Carlos III de Madrid
 
 Author: <a href="http://roboticslab.uc3m.es/roboticslab/persona_publ.php?id_pers=72">Juan G. Victores</a>
 
@@ -25,7 +25,7 @@ First we must run a YARP name server if it is not running in our current namespa
 
 Browse to app and run the yarmanager. The follow-me App should be available.
 \verbatim
-[on terminal 2] cd repos/teo-main/share
+[on terminal 2] cd repos/follow-me/share
 [on terminal 2] yarpmanager
 \endverbatim
 
