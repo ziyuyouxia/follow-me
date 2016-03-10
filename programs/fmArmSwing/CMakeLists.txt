@@ -2,7 +2,7 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-set(KEYWORD "armSwing")
+set(KEYWORD "fmArmSwing")
 
 # Start a project.
 project(${KEYWORD})
@@ -11,6 +11,6 @@ project(${KEYWORD})
 find_package(YARP REQUIRED)
 
 # Set up our executables.
-add_executable(${KEYWORD} main.cpp ArmSwing.cpp)
+add_executable(${KEYWORD} main.cpp FmArmSwing.cpp)
 target_link_libraries(${KEYWORD} ${YARP_LIBRARIES})
 

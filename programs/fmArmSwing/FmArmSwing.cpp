@@ -1,18 +1,18 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#include "ArmSwing.hpp"
+#include "FmArmSwing.hpp"
 
 namespace teo
 {
 
 /************************************************************************/
 
-bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
+bool FmArmSwing::configure(yarp::os::ResourceFinder &rf)
 {
     yarp::os::Property leftArmOptions;
     leftArmOptions.put("device","remote_controlboard");
     leftArmOptions.put("remote","/teo/leftArm");
-    leftArmOptions.put("local","/armSwing/teo/leftArm");
+    leftArmOptions.put("local","/fmArmSwing/teo/leftArm");
     leftArmDevice.open(leftArmOptions);
     if(!leftArmDevice.isValid()) {
       printf("/teo/leftArm device not available.\n");
@@ -30,7 +30,7 @@ bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
     yarp::os::Property rightArmOptions;
     rightArmOptions.put("device","remote_controlboard");
     rightArmOptions.put("remote","/teo/rightArm");
-    rightArmOptions.put("local","/armSwing/teo/rightArm");
+    rightArmOptions.put("local","/fmArmSwing/teo/rightArm");
     rightArmDevice.open(rightArmOptions);
     if(!rightArmDevice.isValid()) {
       printf("/teo/rightArm device not available.\n");
@@ -52,7 +52,7 @@ bool ArmSwing::configure(yarp::os::ResourceFinder &rf)
 
 /************************************************************************/
 
-bool ArmSwing::interruptModule()
+bool FmArmSwing::interruptModule()
 {
     leftArmDevice.close();
     return true;
@@ -60,14 +60,14 @@ bool ArmSwing::interruptModule()
 
 /************************************************************************/
 
-double ArmSwing::getPeriod()
+double FmArmSwing::getPeriod()
 {
     return 5.0; // Fixed, in seconds, the slow thread that calls updateModule below
 }
 
 /************************************************************************/
 
-bool ArmSwing::updateModule()
+bool FmArmSwing::updateModule()
 {
     printf("Entered updateModule...\n");
     if(phase)

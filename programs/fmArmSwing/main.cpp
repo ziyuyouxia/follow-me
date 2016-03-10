@@ -1,16 +1,16 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#include "ArmSwing.hpp"
+#include "FmArmSwing.hpp"
 
 int main(int argc, char **argv) {
 
     yarp::os::ResourceFinder rf;
     rf.setVerbose(true);
-    rf.setDefaultContext("armSwing");
-    rf.setDefaultConfigFile("armSwing.ini");
+    rf.setDefaultContext("fmArmSwing");
+    rf.setDefaultConfigFile("fmArmSwing.ini");
     rf.configure(argc, argv);
 
-    teo::ArmSwing mod;
+    teo::FmArmSwing mod;
     if(rf.check("help")) {
         return mod.runModule(rf);
     }

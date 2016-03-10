@@ -6,7 +6,7 @@
 namespace teo
 {
 
-class ArmSwing : public yarp::os::RFModule
+class FmArmSwing : public yarp::os::RFModule
 {
 public:
      bool configure(yarp::os::ResourceFinder &rf);
