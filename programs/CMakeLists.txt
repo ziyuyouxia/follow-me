@@ -3,4 +3,5 @@
 
 add_subdirectory(fmArmSwing)
 add_subdirectory(fmDialogueManager)
+add_subdirectory(fmExecutionCore)
 
