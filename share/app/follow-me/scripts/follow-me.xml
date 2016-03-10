@@ -45,5 +45,10 @@
         <to>/iSpeak</to>
     </connection>
 
+    <module>
+        <name>fmArmSwing</name>
+        <node>localhost</node>
+    </module>
+
 </application>
 
