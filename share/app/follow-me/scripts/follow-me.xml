@@ -7,7 +7,7 @@
 
     <module>
         <name>followMeExecutionCore</name>
-        <node>/manipulation</node>
+        <node>localhost</node>
     </module>
     <connection>
         <from>/followMeDialogueManager/command:o</from>
