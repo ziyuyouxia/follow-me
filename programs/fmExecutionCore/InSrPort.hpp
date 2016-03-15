@@ -18,7 +18,7 @@ namespace teo
 {
 
 /**
- * @ingroup fmExecutionCore
+ * @ingroup followMeExecutionCore
  *
  * @brief Input port of speech recognition data.
  *

@@ -3,11 +3,11 @@
 /**
  *
  * @ingroup follow-me_programs
- * \defgroup fmExecutionCore fmExecutionCore
+ * \defgroup followMeExecutionCore followMeExecutionCore
  *
  * @brief Creates an instance of teo::FmExecutionCore.
  *
- * @section fmExecutionCore_legal Legal
+ * @section followMeExecutionCore_legal Legal
  *
  * Copyright: 2016 (C) Universidad Carlos III de Madrid
  *
@@ -18,7 +18,7 @@
  *
  * <hr>
  *
- * This file can be edited at fmExecutionCore
+ * This file can be edited at followMeExecutionCore
  *
  */
 
@@ -32,8 +32,8 @@ int main(int argc, char **argv) {
 
     ResourceFinder rf;
     rf.setVerbose(true);
-    rf.setDefaultContext("fmExecutionCore");
-    rf.setDefaultConfigFile("fmExecutionCore.ini");
+    rf.setDefaultContext("followMeExecutionCore");
+    rf.setDefaultConfigFile("followMeExecutionCore.ini");
     rf.configure(argc, argv);
 
     teo::FmExecutionCore mod;

@@ -2,7 +2,7 @@
 @ingroup  follow-me_applications
 \defgroup teo_follow-me follow-me App
 
-@brief An application that launches follow-me programs: \ref fmArmSwing, \ref fmDialogueManager, \ref fmExecutionCore.
+@brief An application that launches follow-me programs: \ref followMeArmSwing, \ref followMeDialogueManager, \ref followMeExecutionCore.
 
 \image html follow-me-app.png
 

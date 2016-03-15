@@ -2,9 +2,9 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-IF (ENABLE_fmExecutionCore)
+IF (ENABLE_followMeExecutionCore)
 
-set(KEYWORD "fmExecutionCore")
+set(KEYWORD "followMeExecutionCore")
 
 # Find YARP.  Point the YARP_DIR environment variable at your build.
 find_package(YARP REQUIRED)
@@ -33,5 +33,5 @@ else (folder_source)
   message(FATAL_ERROR "No source code files found. Please add something")
 endif (folder_source)
 
-ENDIF (ENABLE_fmExecutionCore)
+ENDIF (ENABLE_followMeExecutionCore)
 

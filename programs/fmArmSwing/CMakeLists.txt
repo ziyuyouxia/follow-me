@@ -2,9 +2,9 @@
 
 cmake_minimum_required(VERSION 2.6)
 
-IF (ENABLE_fmArmSwing)
+IF (ENABLE_followMeArmSwing)
 
-set(KEYWORD "fmArmSwing")
+set(KEYWORD "followMeArmSwing")
 
 # Find YARP.
 find_package(YARP REQUIRED)
@@ -34,5 +34,5 @@ else (folder_source)
   message(FATAL_ERROR "No source code files found. Please add something")
 endif (folder_source)
 
-ENDIF (ENABLE_fmArmSwing)
+ENDIF (ENABLE_followMeArmSwing)
 

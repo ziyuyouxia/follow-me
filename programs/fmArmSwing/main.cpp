@@ -3,11 +3,11 @@
 /**
  *
  * @ingroup follow-me_programs
- * \defgroup fmArmSwing fmArmSwing
+ * \defgroup followMeArmSwing followMeArmSwing
  *
  * @brief Creates an instance of teo::FmArmSwing.
  *
- * @section fmArmSwing_legal Legal
+ * @section followMeArmSwing_legal Legal
  *
  * Copyright: 2013 (C) Universidad Carlos III de Madrid
  *
@@ -18,7 +18,7 @@
  *
  * <hr>
  *
- * This file can be edited at fmArmSwing
+ * This file can be edited at followMeArmSwing
  *
  */
 
@@ -28,8 +28,8 @@ int main(int argc, char **argv) {
 
     yarp::os::ResourceFinder rf;
     rf.setVerbose(true);
-    rf.setDefaultContext("fmArmSwing");
-    rf.setDefaultConfigFile("fmArmSwing.ini");
+    rf.setDefaultContext("followMeArmSwing");
+    rf.setDefaultConfigFile("followMeArmSwing.ini");
     rf.configure(argc, argv);
 
     teo::FmArmSwing mod;

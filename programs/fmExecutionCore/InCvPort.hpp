@@ -16,7 +16,7 @@ namespace teo
 {
 
 /**
- * @ingroup fmExecutionCore
+ * @ingroup followMeExecutionCore
  *
  * @brief Input port of computer vision data.
  *

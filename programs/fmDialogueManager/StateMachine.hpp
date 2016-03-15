@@ -20,9 +20,9 @@ namespace teo
 {
 
 /**
- * @ingroup fmDialogueManager
+ * @ingroup followMeDialogueManager
  *
- * @brief implements a specific state machine for fmDialogueManager.
+ * @brief implements a specific state machine for followMeDialogueManager.
  */
 class StateMachine : public yarp::os::Thread {
 protected:

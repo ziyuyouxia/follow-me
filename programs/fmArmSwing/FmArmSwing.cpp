@@ -12,7 +12,7 @@ bool FmArmSwing::configure(yarp::os::ResourceFinder &rf)
     yarp::os::Property leftArmOptions;
     leftArmOptions.put("device","remote_controlboard");
     leftArmOptions.put("remote","/teo/leftArm");
-    leftArmOptions.put("local","/fmArmSwing/teo/leftArm");
+    leftArmOptions.put("local","/followMeArmSwing/teo/leftArm");
     leftArmDevice.open(leftArmOptions);
     if(!leftArmDevice.isValid()) {
       printf("/teo/leftArm device not available.\n");
@@ -30,7 +30,7 @@ bool FmArmSwing::configure(yarp::os::ResourceFinder &rf)
     yarp::os::Property rightArmOptions;
     rightArmOptions.put("device","remote_controlboard");
     rightArmOptions.put("remote","/teo/rightArm");
-    rightArmOptions.put("local","/fmArmSwing/teo/rightArm");
+    rightArmOptions.put("local","/followMeArmSwing/teo/rightArm");
     rightArmDevice.open(rightArmOptions);
     if(!rightArmDevice.isValid()) {
       printf("/teo/rightArm device not available.\n");

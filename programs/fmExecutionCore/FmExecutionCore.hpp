@@ -19,7 +19,7 @@ namespace teo
 {
 
 /**
- * @ingroup fmExecutionCore
+ * @ingroup followMeExecutionCore
  *
  * @brief Execution Core 1.
  *

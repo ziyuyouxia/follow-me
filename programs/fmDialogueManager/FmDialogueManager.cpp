@@ -26,15 +26,15 @@ bool FmDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     }
 
     //-----------------OPEN LOCAL PORTS------------//
-    outCmdPort.open("/fmDialogueManager/command:o");
-    outTtsPort.open("/fmDialogueManager/iSpeak:o");
-    inSrPort.open("/fmDialogueManager/speechRecognition:i");
+    outCmdPort.open("/followMeDialogueManager/command:o");
+    outTtsPort.open("/followMeDialogueManager/iSpeak:o");
+    inSrPort.open("/followMeDialogueManager/speechRecognition:i");
     stateMachine.setOutCmdPort(&outCmdPort);
     stateMachine.setOutTtsPort(&outTtsPort);
     stateMachine.setInSrPort(&inSrPort);
     while(1){
         if(outTtsPort.getOutputCount() > 0) break;
-        printf("Waiting for \"/fmDialogueManager/tts:o\" to be connected to something...\n");
+        printf("Waiting for \"/followMeDialogueManager/tts:o\" to be connected to something...\n");
         yarp::os::Time::delay(0.5);
     }    
     stateMachine.start();

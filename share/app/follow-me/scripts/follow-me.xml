@@ -1,17 +1,17 @@
 <application>
 <name>follow-me App</name>
     <module>
-        <name>fmDialogueManager</name>
+        <name>followMeDialogueManager</name>
         <node>localhost</node>
     </module>
 
     <module>
-        <name>fmExecutionCore</name>
+        <name>followMeExecutionCore</name>
         <node>/manipulation</node>
     </module>
     <connection>
-        <from>/fmDialogueManager/command:o</from>
-        <to>/fmExecutionCore/dialogueManager/command:i</to>
+        <from>/followMeDialogueManager/command:o</from>
+        <to>/followMeExecutionCore/dialogueManager/command:i</to>
     </connection>
 
     <module>
@@ -22,7 +22,7 @@
 
     <connection>
         <from>/cvFaces/state:o</from>
-        <to>/fmExecutionCore/cv/state:i</to>
+        <to>/followMeExecutionCore/cv/state:i</to>
     </connection>
 
     <module>
@@ -37,16 +37,16 @@
 
     <connection>
         <from>/speechRecognition1:o</from>
-        <to>/fmDialogueManager/speechRecognition:i</to>
+        <to>/followMeDialogueManager/speechRecognition:i</to>
     </connection>
 
     <connection>
-        <from>/fmDialogueManager/iSpeak:o</from>
+        <from>/followMeDialogueManager/iSpeak:o</from>
         <to>/iSpeak</to>
     </connection>
 
     <module>
-        <name>fmArmSwing</name>
+        <name>followMeArmSwing</name>
         <node>localhost</node>
     </module>
 

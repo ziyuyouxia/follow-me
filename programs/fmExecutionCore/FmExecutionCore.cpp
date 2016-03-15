@@ -28,7 +28,7 @@ bool FmExecutionCore::configure(ResourceFinder &rf) {
     //
     Property headOptions;
     headOptions.put("device","remote_controlboard");
-    headOptions.put("local","/fmExecutionCore/head");
+    headOptions.put("local","/followMeExecutionCore/head");
     headOptions.put("remote","/teo/head");
     headDevice.open(headOptions);
     if( ! headDevice.isValid() ) {
@@ -45,8 +45,8 @@ bool FmExecutionCore::configure(ResourceFinder &rf) {
     inSrPort.setInCvPortPtr(&inCvPort);
     inCvPort.useCallback();
     inSrPort.useCallback();
-    inSrPort.open("/fmExecutionCore/dialogueManager/command:i");
-    inCvPort.open("/fmExecutionCore/cv/state:i");
+    inSrPort.open("/followMeExecutionCore/dialogueManager/command:i");
+    inCvPort.open("/followMeExecutionCore/cv/state:i");
 
     return true;
 }

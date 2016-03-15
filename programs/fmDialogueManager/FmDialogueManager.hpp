@@ -18,7 +18,7 @@ namespace teo
 {
 
 /**
- * @ingroup fmDialogueManager
+ * @ingroup followMeDialogueManager
  *
  * @brief Dialogue Manager 1.
  */

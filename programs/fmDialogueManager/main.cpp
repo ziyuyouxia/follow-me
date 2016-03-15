@@ -3,11 +3,11 @@
 /**
  * 
  * @ingroup follow-me_programs
- * \defgroup fmDialogueManager fmDialogueManager
+ * \defgroup followMeDialogueManager followMeDialogueManager
  *
  * @brief Creates an instance of teo::FmDialogueManager.
  *
- * @section fmDialogueManager_legal Legal
+ * @section followMeDialogueManager_legal Legal
  *
  * Copyright: 2016 (C) Universidad Carlos III de Madrid
  *
@@ -18,7 +18,7 @@
  *
  * <hr>
  *
- * This file can be edited at fmDialogueManager
+ * This file can be edited at followMeDialogueManager
  *
  */
 
@@ -29,8 +29,8 @@ int main(int argc, char **argv) {
 
     yarp::os::ResourceFinder rf;
     rf.setVerbose(true);
-    rf.setDefaultContext("fmDialogueManager");
-    rf.setDefaultConfigFile("fmDialogueManager.ini");
+    rf.setDefaultContext("followMeDialogueManager");
+    rf.setDefaultConfigFile("followMeDialogueManager.ini");
     rf.configure(argc, argv);
 
     teo::FmDialogueManager mod;
