@@ -5,7 +5,7 @@
  * @ingroup follow-me_programs
  * \defgroup followMeExecutionCore followMeExecutionCore
  *
- * @brief Creates an instance of teo::FmExecutionCore.
+ * @brief Creates an instance of teo::FollowMeExecutionCore.
  *
  * @section followMeExecutionCore_legal Legal
  *
@@ -24,7 +24,7 @@
 
 #include <yarp/os/all.h>
 
-#include "FmExecutionCore.hpp"
+#include "FollowMeExecutionCore.hpp"
 
 using namespace yarp::os;
 
@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
     rf.setDefaultConfigFile("followMeExecutionCore.ini");
     rf.configure(argc, argv);
 
-    teo::FmExecutionCore mod;
+    teo::FollowMeExecutionCore mod;
     if(rf.check("help")) {
         return mod.runModule(rf);
     }

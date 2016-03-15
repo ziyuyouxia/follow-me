@@ -9,7 +9,7 @@
 namespace teo
 {
 
-class FmArmSwing : public yarp::os::RFModule
+class FollowMeArmSwing : public yarp::os::RFModule
 {
 public:
      bool configure(yarp::os::ResourceFinder &rf);

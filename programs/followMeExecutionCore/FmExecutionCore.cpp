@@ -1,24 +1,24 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#include "FmExecutionCore.hpp"
+#include "FollowMeExecutionCore.hpp"
 
 namespace teo
 {
 
 /************************************************************************/
 
-bool FmExecutionCore::configure(ResourceFinder &rf) {
+bool FollowMeExecutionCore::configure(ResourceFinder &rf) {
 
     //ConstString fileName(DEFAULT_FILE_NAME);
     
     printf("--------------------------------------------------------------\n");
     if (rf.check("help")) {
-        printf("FmExecutionCore options:\n");
+        printf("FollowMeExecutionCore options:\n");
         printf("\t--help (this help)\t--from [file.ini]\t--context [path]\n");
         //printf("\t--file (default: \"%s\")\n",fileName.c_str());
     }
     //if (rf.check("file")) fileName = rf.find("file").asString();
-    //printf("FmExecutionCore using file: %s\n",fileName.c_str());
+    //printf("FollowMeExecutionCore using file: %s\n",fileName.c_str());
 
     printf("--------------------------------------------------------------\n");
     if(rf.check("help")) {
@@ -52,20 +52,20 @@ bool FmExecutionCore::configure(ResourceFinder &rf) {
 }
 
 /************************************************************************/
-double FmExecutionCore::getPeriod() {
+double FollowMeExecutionCore::getPeriod() {
     return 2.0;  // Fixed, in seconds, the slow thread that calls updateModule below
 }
 
 /************************************************************************/
-bool FmExecutionCore::updateModule() {
-    //printf("StateMachine in state [%d]. FmExecutionCore alive...\n", stateMachine.getMachineState());
+bool FollowMeExecutionCore::updateModule() {
+    //printf("StateMachine in state [%d]. FollowMeExecutionCore alive...\n", stateMachine.getMachineState());
     return true;
 }
 
 /************************************************************************/
 
-bool FmExecutionCore::interruptModule() {
-    printf("FmExecutionCore closing...\n");
+bool FollowMeExecutionCore::interruptModule() {
+    printf("FollowMeExecutionCore closing...\n");
     inCvPort.disableCallback();
     inSrPort.disableCallback();
     inCvPort.interrupt();

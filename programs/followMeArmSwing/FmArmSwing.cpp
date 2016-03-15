@@ -1,13 +1,13 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#include "FmArmSwing.hpp"
+#include "FollowMeArmSwing.hpp"
 
 namespace teo
 {
 
 /************************************************************************/
 
-bool FmArmSwing::configure(yarp::os::ResourceFinder &rf)
+bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 {
     yarp::os::Property leftArmOptions;
     leftArmOptions.put("device","remote_controlboard");
@@ -52,7 +52,7 @@ bool FmArmSwing::configure(yarp::os::ResourceFinder &rf)
 
 /************************************************************************/
 
-bool FmArmSwing::interruptModule()
+bool FollowMeArmSwing::interruptModule()
 {
     leftArmDevice.close();
     return true;
@@ -60,14 +60,14 @@ bool FmArmSwing::interruptModule()
 
 /************************************************************************/
 
-double FmArmSwing::getPeriod()
+double FollowMeArmSwing::getPeriod()
 {
     return 5.0; // Fixed, in seconds, the slow thread that calls updateModule below
 }
 
 /************************************************************************/
 
-bool FmArmSwing::updateModule()
+bool FollowMeArmSwing::updateModule()
 {
     printf("Entered updateModule...\n");
     if(phase)

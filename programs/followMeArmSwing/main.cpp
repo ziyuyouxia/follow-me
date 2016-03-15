@@ -5,7 +5,7 @@
  * @ingroup follow-me_programs
  * \defgroup followMeArmSwing followMeArmSwing
  *
- * @brief Creates an instance of teo::FmArmSwing.
+ * @brief Creates an instance of teo::FollowMeArmSwing.
  *
  * @section followMeArmSwing_legal Legal
  *
@@ -22,7 +22,7 @@
  *
  */
 
-#include "FmArmSwing.hpp"
+#include "FollowMeArmSwing.hpp"
 
 int main(int argc, char **argv) {
 
@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     rf.setDefaultConfigFile("followMeArmSwing.ini");
     rf.configure(argc, argv);
 
-    teo::FmArmSwing mod;
+    teo::FollowMeArmSwing mod;
     if(rf.check("help")) {
         return mod.runModule(rf);
     }

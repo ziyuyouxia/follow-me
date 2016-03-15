@@ -1,24 +1,24 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#include "FmDialogueManager.hpp"
+#include "FollowMeDialogueManager.hpp"
 
 namespace teo
 {
 
 /************************************************************************/
 
-bool FmDialogueManager::configure(yarp::os::ResourceFinder &rf) {
+bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
 
     //ConstString fileName(DEFAULT_FILE_NAME);
     
     printf("--------------------------------------------------------------\n");
     if (rf.check("help")) {
-        printf("FmDialogueManager options:\n");
+        printf("FollowMeDialogueManager options:\n");
         printf("\t--help (this help)\t--from [file.ini]\t--context [path]\n");
         //printf("\t--file (default: \"%s\")\n",fileName.c_str());
     }
     //if (rf.check("file")) fileName = rf.find("file").asString();
-    //printf("FmDialogueManager using file: %s\n",fileName.c_str());
+    //printf("FollowMeDialogueManager using file: %s\n",fileName.c_str());
 
     printf("--------------------------------------------------------------\n");
     if(rf.check("help")) {
@@ -42,20 +42,20 @@ bool FmDialogueManager::configure(yarp::os::ResourceFinder &rf) {
 }
 
 /************************************************************************/
-double FmDialogueManager::getPeriod() {
+double FollowMeDialogueManager::getPeriod() {
     return 2.0;  // Fixed, in seconds, the slow thread that calls updateModule below
 }
 
 /************************************************************************/
-bool FmDialogueManager::updateModule() {
-    printf("StateMachine in state [%d]. FmDialogueManager alive...\n", stateMachine.getMachineState());
+bool FollowMeDialogueManager::updateModule() {
+    printf("StateMachine in state [%d]. FollowMeDialogueManager alive...\n", stateMachine.getMachineState());
     return true;
 }
 
 /************************************************************************/
 
-bool FmDialogueManager::interruptModule() {
-    printf("FmDialogueManager closing...\n");
+bool FollowMeDialogueManager::interruptModule() {
+    printf("FollowMeDialogueManager closing...\n");
     inSrPort.interrupt();
     outTtsPort.interrupt();
     stateMachine.stop();

@@ -24,7 +24,7 @@ namespace teo
  * @brief Execution Core 1.
  *
  */
-class FmExecutionCore : public RFModule {
+class FollowMeExecutionCore : public RFModule {
     public:
         bool configure(ResourceFinder &rf);
 

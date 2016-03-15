@@ -5,7 +5,7 @@
  * @ingroup follow-me_programs
  * \defgroup followMeDialogueManager followMeDialogueManager
  *
- * @brief Creates an instance of teo::FmDialogueManager.
+ * @brief Creates an instance of teo::FollowMeDialogueManager.
  *
  * @section followMeDialogueManager_legal Legal
  *
@@ -22,7 +22,7 @@
  *
  */
 
-#include "FmDialogueManager.hpp"
+#include "FollowMeDialogueManager.hpp"
 
 
 int main(int argc, char **argv) {
@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     rf.setDefaultConfigFile("followMeDialogueManager.ini");
     rf.configure(argc, argv);
 
-    teo::FmDialogueManager mod;
+    teo::FollowMeDialogueManager mod;
     if(rf.check("help")) {
         return mod.runModule(rf);
     }

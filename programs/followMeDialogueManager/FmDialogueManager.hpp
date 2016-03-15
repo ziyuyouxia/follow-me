@@ -22,7 +22,7 @@ namespace teo
  *
  * @brief Dialogue Manager 1.
  */
-class FmDialogueManager : public yarp::os::RFModule {
+class FollowMeDialogueManager : public yarp::os::RFModule {
   private:
     StateMachine stateMachine;
     yarp::os::BufferedPort<yarp::os::Bottle> inSrPort;
