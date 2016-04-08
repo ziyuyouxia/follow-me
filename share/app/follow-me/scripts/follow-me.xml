@@ -15,28 +15,28 @@
     </connection>
 
     <module>
-        <name>cvFaces</name>
-        <parameters>--kinectDevice OpenNI2DeviceClient --kinectLocal /cvFaces</parameters>
+        <name>haarDetection</name>
+        <parameters>--kinectDevice OpenNI2DeviceClient --kinectLocal /haarDetection</parameters>
         <node>/head</node>
     </module>
 
     <connection>
-        <from>/cvFaces/state:o</from>
+        <from>/haarDetection/state:o</from>
         <to>/followMeExecutionCore/cv/state:i</to>
     </connection>
 
     <module>
         <name>yarpview</name>
-        <parameters>--name /yarpview/cvFaces/img:i</parameters>
+        <parameters>--name /yarpview/haarDetection/img:i</parameters>
         <node>localhost</node>
     </module>
     <connection>
-        <from>/cvFaces/img:o</from>
-        <to>/yarpview/cvFaces/img:i</to>
+        <from>/haarDetection/img:o</from>
+        <to>/yarpview/haarDetection/img:i</to>
     </connection>
 
     <connection>
-        <from>/speechRecognition1:o</from>
+        <from>/speechRecognition:o</from>
         <to>/followMeDialogueManager/speechRecognition:i</to>
     </connection>
 
