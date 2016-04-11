@@ -62,7 +62,7 @@ bool FollowMeArmSwing::interruptModule()
 
 double FollowMeArmSwing::getPeriod()
 {
-    return 5.0; // Fixed, in seconds, the slow thread that calls updateModule below
+    return 4.0; // Fixed, in seconds, the slow thread that calls updateModule below
 }
 
 /************************************************************************/
