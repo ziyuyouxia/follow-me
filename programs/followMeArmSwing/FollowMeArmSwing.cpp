@@ -73,13 +73,13 @@ bool FollowMeArmSwing::updateModule()
     if(phase)
     {
         leftArmPos->positionMove(0, 20);
-        rightArmPos->positionMove(1, -20);  // open
+        rightArmPos->positionMove(0, 20);
         phase = false;
     }
     else
     {
         leftArmPos->positionMove(0, -20);
-        rightArmPos->positionMove(1, 0);  // neutral (close)
+        rightArmPos->positionMove(0, -20);
         phase = true;
     }
 
