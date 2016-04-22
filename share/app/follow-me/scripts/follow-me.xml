@@ -42,7 +42,7 @@
 
     <connection>
         <from>/followMeDialogueManager/iSpeak:o</from>
-        <to>/iSpeak</to>
+        <to>/icub/speech:rpc</to>
     </connection>
 
     <module>
