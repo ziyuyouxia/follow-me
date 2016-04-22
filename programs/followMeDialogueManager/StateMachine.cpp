@@ -51,10 +51,12 @@ void StateMachine::run() {
 /************************************************************************/
 
 void StateMachine::ttsSay(const yarp::os::ConstString& sayConstString) {
-    yarp::os::Bottle bOut;
+    yarp::os::Bottle bOut,bRes;
+    bOut.addString("say");
     bOut.addString(sayConstString);
-    outTtsPort->write(bOut);
+    outTtsPort->write(bOut,bRes);
     printf("[StateMachine] Said: %s\n", sayConstString.c_str());
+    printf("[StateMachine] Got: %s\n", bRes.toString().c_str());
 }
 
 /************************************************************************/
