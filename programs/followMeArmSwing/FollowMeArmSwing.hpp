@@ -39,13 +39,8 @@ private:
      /** Input port from speech recognition */
      yarp::os::Port inSrPort;
      /** Treats data received from input port from speech recognition */
-     virtual bool read(yarp::os::ConnectionReader& connection) {
-          yarp::os::Bottle b;
-          b.read(connection);
-          // process data in b
-          printf("Got %s\n", b.toString().c_str());
-          return true;
-     }
+     virtual bool read(yarp::os::ConnectionReader& connection);
+
 };
 
 }  // namespace teo

@@ -105,5 +105,16 @@ bool FollowMeArmSwing::updateModule()
 
 /************************************************************************/
 
+bool FollowMeArmSwing::read(yarp::os::ConnectionReader& connection)
+{
+     yarp::os::Bottle b;
+     b.read(connection);
+     // process data in b
+     printf("[FollowMeArmSwing] Got %s\n", b.toString().c_str());
+     return true;
+}
+
+/************************************************************************/
+
 }  // namespace teo
 
