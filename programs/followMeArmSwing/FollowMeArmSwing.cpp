@@ -31,7 +31,7 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
       printf("robot leftArm device not available.\n");
       leftArmDevice.close();
       yarp::os::Network::fini();
-      return 1;
+      return false;
     }
 
     if ( ! leftArmDevice.view(leftArmPos) ) {
@@ -49,7 +49,7 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
       printf("robot rightArm device not available.\n");
       rightArmDevice.close();
       yarp::os::Network::fini();
-      return 1;
+      return false;
     }
 
     if ( ! rightArmDevice.view(rightArmPos) ) {
