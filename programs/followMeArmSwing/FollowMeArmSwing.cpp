@@ -9,13 +9,26 @@ namespace teo
 
 bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 {
+    std::string robot = rf.check("robot",yarp::os::Value(DEFAULT_ROBOT),"name of /robot to be used").asString();
+
+    printf("--------------------------------------------------------------\n");
+    if (rf.check("help"))
+    {
+        printf("FollowMeArmSwing options:\n");
+        printf("\t--help (this help)\t--from [file.ini]\t--context [path]\n");
+        printf("\t--robot: %s [%s]\n",robot.c_str(),DEFAULT_ROBOT);
+        ::exit(0);
+    }
+
+    std::string followMeArmSwingStr("/followMeArmSwing");
+
     yarp::os::Property leftArmOptions;
     leftArmOptions.put("device","remote_controlboard");
-    leftArmOptions.put("remote","/teo/leftArm");
-    leftArmOptions.put("local","/followMeArmSwing/teo/leftArm");
+    leftArmOptions.put("remote",robot+"/leftArm");
+    leftArmOptions.put("local",followMeArmSwingStr+robot+"/leftArm");
     leftArmDevice.open(leftArmOptions);
     if(!leftArmDevice.isValid()) {
-      printf("/teo/leftArm device not available.\n");
+      printf("robot leftArm device not available.\n");
       leftArmDevice.close();
       yarp::os::Network::fini();
       return 1;
@@ -29,11 +42,11 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 
     yarp::os::Property rightArmOptions;
     rightArmOptions.put("device","remote_controlboard");
-    rightArmOptions.put("remote","/teo/rightArm");
-    rightArmOptions.put("local","/followMeArmSwing/teo/rightArm");
+    rightArmOptions.put("remote",robot+"/rightArm");
+    rightArmOptions.put("local",followMeArmSwingStr+robot+"/rightArm");
     rightArmDevice.open(rightArmOptions);
     if(!rightArmDevice.isValid()) {
-      printf("/teo/rightArm device not available.\n");
+      printf("robot rightArm device not available.\n");
       rightArmDevice.close();
       yarp::os::Network::fini();
       return 1;
