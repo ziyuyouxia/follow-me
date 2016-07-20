@@ -8,6 +8,11 @@
 
 #define DEFAULT_ROBOT "/teo"
 
+#define VOCAB_FOLLOW_ME VOCAB4('f','o','l','l')
+
+#define VOCAB_STATE_SALUTE VOCAB4('s','a','l','u')
+#define VOCAB_STATE_ARM_SWINGING VOCAB4('s','w','i','n')
+
 namespace teo
 {
 
@@ -35,6 +40,9 @@ private:
 
      /** Phase of arm swing movement */
      bool phase;
+
+     /** State */
+     int state;
 
      /** Input port from speech recognition */
      yarp::os::Port inSrPort;

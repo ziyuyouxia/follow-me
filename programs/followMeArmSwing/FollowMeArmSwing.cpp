@@ -20,6 +20,8 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
         ::exit(0);
     }
 
+    state = VOCAB_STATE_SALUTE;
+
     std::string followMeArmSwingStr("/followMeArmSwing");
 
     yarp::os::Property leftArmOptions;
@@ -87,17 +89,32 @@ double FollowMeArmSwing::getPeriod()
 bool FollowMeArmSwing::updateModule()
 {
     printf("Entered updateModule...\n");
-    if(phase)
+
+    switch (state)
     {
-        leftArmPos->positionMove(0, 20);
-        rightArmPos->positionMove(0, 20);
-        phase = false;
-    }
-    else
-    {
-        leftArmPos->positionMove(0, -20);
-        rightArmPos->positionMove(0, -20);
-        phase = true;
+    case VOCAB_STATE_ARM_SWINGING:
+        if(phase)
+        {
+            leftArmPos->positionMove(0, 20);
+            rightArmPos->positionMove(0, 20);
+            phase = false;
+        }
+        else
+        {
+            leftArmPos->positionMove(0, -20);
+            rightArmPos->positionMove(0, -20);
+            phase = true;
+        }
+        break;
+
+    case VOCAB_STATE_SALUTE:
+        //
+        state = VOCAB_STATE_ARM_SWINGING;
+        break;
+
+    default:
+        printf("Bad state!\n");
+        break;
     }
 
     return true;
