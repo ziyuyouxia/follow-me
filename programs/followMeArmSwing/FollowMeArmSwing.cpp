@@ -156,7 +156,31 @@ void FollowMeArmSwing::run()
             break;
 
         case VOCAB_STATE_SALUTE:
-            //
+            printf("Salute\n");
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 45;
+                rightArmQ[2] = 20;
+                rightArmQ[3] = 80;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 45;
+                rightArmQ[2] = -20;
+                rightArmQ[3] = 80;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 45;
+                rightArmQ[2] = 20;
+                rightArmQ[3] = 80;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
             state = VOCAB_STATE_ARM_SWINGING;
             break;
 
