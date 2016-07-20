@@ -47,6 +47,9 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 
     phase = false;
 
+    inSrPort.open("/followMeArmSwing/dialogueManager/command:i");
+    inSrPort.setReader(*this);  //-- Callback reader: avoid need to call inSrPort.read().
+
     return true;
 }
 
@@ -54,6 +57,7 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 
 bool FollowMeArmSwing::interruptModule()
 {
+    inSrPort.interrupt();
     leftArmDevice.close();
     return true;
 }

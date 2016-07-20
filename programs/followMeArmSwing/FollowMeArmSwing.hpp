@@ -9,7 +9,7 @@
 namespace teo
 {
 
-class FollowMeArmSwing : public yarp::os::RFModule
+class FollowMeArmSwing : public yarp::os::RFModule, public yarp::os::PortReader
 {
 public:
      bool configure(yarp::os::ResourceFinder &rf);
@@ -24,6 +24,15 @@ private:
      yarp::dev::IPositionControl *rightArmPos;
 
      bool phase;
+
+     yarp::os::Port inSrPort;
+     virtual bool read(yarp::os::ConnectionReader& connection) {
+          yarp::os::Bottle b;
+          b.read(connection);
+          // process data in b
+          printf("Got %s\n", b.toString().c_str());
+          return true;
+     }
 };
 
 }  // namespace teo
