@@ -14,20 +14,31 @@ namespace teo
 class FollowMeArmSwing : public yarp::os::RFModule, public yarp::os::PortReader
 {
 public:
-     bool configure(yarp::os::ResourceFinder &rf);
+     virtual bool configure(yarp::os::ResourceFinder &rf);
 private:
-     bool interruptModule();
-     double getPeriod();
-     bool updateModule();
+     /** RFModule interruptModule. */
+     virtual bool interruptModule();
+     /** RFModule getPeriod. */
+     virtual double getPeriod();
+     /** RFModule updateModule. */
+     virtual bool updateModule();
 
+     /** Left Arm Device */
      yarp::dev::PolyDriver leftArmDevice;
-     yarp::dev::PolyDriver rightArmDevice;
+     /** Left Arm Position Interface */
      yarp::dev::IPositionControl *leftArmPos;
+
+     /** Right Arm Device */
+     yarp::dev::PolyDriver rightArmDevice;
+     /** Right Arm Position Interface */
      yarp::dev::IPositionControl *rightArmPos;
 
+     /** Phase of arm swing movement */
      bool phase;
 
+     /** Input port from speech recognition */
      yarp::os::Port inSrPort;
+     /** Treats data received from input port from speech recognition */
      virtual bool read(yarp::os::ConnectionReader& connection) {
           yarp::os::Bottle b;
           b.read(connection);
