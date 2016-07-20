@@ -36,11 +36,11 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
       return false;
     }
 
-    if ( ! leftArmDevice.view(leftArmPos) ) {
+    if ( ! leftArmDevice.view(leftArmIPositionControl) ) {
         printf("[warning] Problems acquiring leftArmPos interface\n");
         return false;
     } else printf("[success] Acquired leftArmPos interface\n");
-    leftArmPos->setPositionMode();
+    leftArmIPositionControl->setPositionMode();
 
     yarp::os::Property rightArmOptions;
     rightArmOptions.put("device","remote_controlboard");
@@ -54,24 +54,25 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
       return false;
     }
 
-    if ( ! rightArmDevice.view(rightArmPos) ) {
+    if ( ! rightArmDevice.view(rightArmIPositionControl) ) {
         printf("[warning] Problems acquiring rightArmPos interface\n");
         return false;
     } else printf("[success] Acquired rightArmPos interface\n");
-    rightArmPos->setPositionMode();
+    rightArmIPositionControl->setPositionMode();
 
     phase = false;
 
     inSrPort.open("/followMeArmSwing/dialogueManager/command:i");
     inSrPort.setReader(*this);  //-- Callback reader: avoid need to call inSrPort.read().
 
-    return true;
+    return this->start();  //-- Start the thread (calls run).
 }
 
 /************************************************************************/
 
 bool FollowMeArmSwing::interruptModule()
 {
+    this->stop();
     inSrPort.interrupt();
     leftArmDevice.close();
     return true;
@@ -90,33 +91,25 @@ bool FollowMeArmSwing::updateModule()
 {
     printf("Entered updateModule...\n");
 
-    switch (state)
+    return true;
+}
+
+/************************************************************************/
+
+bool FollowMeArmSwing::armJointsMoveAndWait(std::vector<double>& leftArmQ, std::vector<double> &rightArmQ)
+{
+    rightArmIPositionControl->positionMove( rightArmQ.data() );
+    leftArmIPositionControl->positionMove( leftArmQ.data() );
+    //printf("Waiting for right arm.");
+    bool done = false;
+    while((!done)&&(!Thread::isStopping()))
     {
-    case VOCAB_STATE_ARM_SWINGING:
-        if(phase)
-        {
-            leftArmPos->positionMove(0, 20);
-            rightArmPos->positionMove(0, 20);
-            phase = false;
-        }
-        else
-        {
-            leftArmPos->positionMove(0, -20);
-            rightArmPos->positionMove(0, -20);
-            phase = true;
-        }
-        break;
-
-    case VOCAB_STATE_SALUTE:
-        //
-        state = VOCAB_STATE_ARM_SWINGING;
-        break;
-
-    default:
-        printf("Bad state!\n");
-        break;
+        rightArmIPositionControl->checkMotionDone(&done);
+        //printf(".");
+        //fflush(stdout);
+        yarp::os::Time::delay(0.1);
     }
-
+    //printf("\n");
     return true;
 }
 
@@ -129,6 +122,51 @@ bool FollowMeArmSwing::read(yarp::os::ConnectionReader& connection)
      // process data in b
      printf("[FollowMeArmSwing] Got %s\n", b.toString().c_str());
      return true;
+}
+
+/************************************************************************/
+
+void FollowMeArmSwing::run()
+{
+    while( !Thread::isStopping() )
+    {
+        switch (state)
+        {
+        case VOCAB_STATE_ARM_SWINGING:
+            if(phase)
+            {
+                printf("Phase: true\n");
+                std::vector<double> leftArmQ(7,0.0);
+                leftArmQ[0] = 20;
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 20;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+                phase = false;
+            }
+            else
+            {
+                printf("Phase: false\n");
+                std::vector<double> leftArmQ(7,0.0);
+                leftArmQ[0] = -20;
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = -20;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+                phase = true;
+            }
+            break;
+
+        case VOCAB_STATE_SALUTE:
+            //
+            state = VOCAB_STATE_ARM_SWINGING;
+            break;
+
+        default:
+            printf("Bad state!\n");
+            break;
+        }
+    }
+
+    return;
 }
 
 /************************************************************************/
