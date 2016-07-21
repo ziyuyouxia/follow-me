@@ -9,51 +9,71 @@ namespace teo
 
 bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 {
-    yarp::os::Property leftArmOptions;
-    leftArmOptions.put("device","remote_controlboard");
-    leftArmOptions.put("remote","/teo/leftArm");
-    leftArmOptions.put("local","/followMeArmSwing/teo/leftArm");
-    leftArmDevice.open(leftArmOptions);
-    if(!leftArmDevice.isValid()) {
-      printf("/teo/leftArm device not available.\n");
-      leftArmDevice.close();
-      yarp::os::Network::fini();
-      return 1;
+    std::string robot = rf.check("robot",yarp::os::Value(DEFAULT_ROBOT),"name of /robot to be used").asString();
+
+    printf("--------------------------------------------------------------\n");
+    if (rf.check("help"))
+    {
+        printf("FollowMeArmSwing options:\n");
+        printf("\t--help (this help)\t--from [file.ini]\t--context [path]\n");
+        printf("\t--robot: %s [%s]\n",robot.c_str(),DEFAULT_ROBOT);
+        ::exit(0);
     }
 
-    if ( ! leftArmDevice.view(leftArmPos) ) {
+    state = VOCAB_STATE_ARM_SWINGING;
+
+    std::string followMeArmSwingStr("/followMeArmSwing");
+
+    yarp::os::Property leftArmOptions;
+    leftArmOptions.put("device","remote_controlboard");
+    leftArmOptions.put("remote",robot+"/leftArm");
+    leftArmOptions.put("local",followMeArmSwingStr+robot+"/leftArm");
+    leftArmDevice.open(leftArmOptions);
+    if(!leftArmDevice.isValid()) {
+      printf("robot leftArm device not available.\n");
+      leftArmDevice.close();
+      yarp::os::Network::fini();
+      return false;
+    }
+
+    if ( ! leftArmDevice.view(leftArmIPositionControl) ) {
         printf("[warning] Problems acquiring leftArmPos interface\n");
         return false;
     } else printf("[success] Acquired leftArmPos interface\n");
-    leftArmPos->setPositionMode();
+    leftArmIPositionControl->setPositionMode();
 
     yarp::os::Property rightArmOptions;
     rightArmOptions.put("device","remote_controlboard");
-    rightArmOptions.put("remote","/teo/rightArm");
-    rightArmOptions.put("local","/followMeArmSwing/teo/rightArm");
+    rightArmOptions.put("remote",robot+"/rightArm");
+    rightArmOptions.put("local",followMeArmSwingStr+robot+"/rightArm");
     rightArmDevice.open(rightArmOptions);
     if(!rightArmDevice.isValid()) {
-      printf("/teo/rightArm device not available.\n");
+      printf("robot rightArm device not available.\n");
       rightArmDevice.close();
       yarp::os::Network::fini();
-      return 1;
+      return false;
     }
 
-    if ( ! rightArmDevice.view(rightArmPos) ) {
+    if ( ! rightArmDevice.view(rightArmIPositionControl) ) {
         printf("[warning] Problems acquiring rightArmPos interface\n");
         return false;
     } else printf("[success] Acquired rightArmPos interface\n");
-    rightArmPos->setPositionMode();
+    rightArmIPositionControl->setPositionMode();
 
     phase = false;
 
-    return true;
+    inSrPort.open("/followMeArmSwing/dialogueManager/command:i");
+    inSrPort.setReader(*this);  //-- Callback reader: avoid need to call inSrPort.read().
+
+    return this->start();  //-- Start the thread (calls run).
 }
 
 /************************************************************************/
 
 bool FollowMeArmSwing::interruptModule()
 {
+    this->stop();
+    inSrPort.interrupt();
     leftArmDevice.close();
     return true;
 }
@@ -70,20 +90,111 @@ double FollowMeArmSwing::getPeriod()
 bool FollowMeArmSwing::updateModule()
 {
     printf("Entered updateModule...\n");
-    if(phase)
-    {
-        leftArmPos->positionMove(0, 20);
-        rightArmPos->positionMove(0, 20);
-        phase = false;
-    }
-    else
-    {
-        leftArmPos->positionMove(0, -20);
-        rightArmPos->positionMove(0, -20);
-        phase = true;
-    }
 
     return true;
+}
+
+/************************************************************************/
+
+bool FollowMeArmSwing::armJointsMoveAndWait(std::vector<double>& leftArmQ, std::vector<double> &rightArmQ)
+{
+    rightArmIPositionControl->positionMove( rightArmQ.data() );
+    leftArmIPositionControl->positionMove( leftArmQ.data() );
+    //printf("Waiting for right arm.");
+    bool done = false;
+    while((!done)&&(!Thread::isStopping()))
+    {
+        rightArmIPositionControl->checkMotionDone(&done);
+        //printf(".");
+        //fflush(stdout);
+        yarp::os::Time::delay(0.1);
+    }
+    //printf("\n");
+    return true;
+}
+
+/************************************************************************/
+
+bool FollowMeArmSwing::read(yarp::os::ConnectionReader& connection)
+{
+     yarp::os::Bottle b;
+     b.read(connection);
+     // process data in b
+     printf("[FollowMeArmSwing] Got %s\n", b.toString().c_str());
+     if( (VOCAB_FOLLOW_ME ==b.get(0).asVocab()) || (VOCAB_STATE_SALUTE ==b.get(0).asVocab()) )
+     {
+         state = VOCAB_STATE_SALUTE;
+     }
+     return true;
+}
+
+/************************************************************************/
+
+void FollowMeArmSwing::run()
+{
+    while( !Thread::isStopping() )
+    {
+        switch (state)
+        {
+        case VOCAB_STATE_ARM_SWINGING:
+            if(phase)
+            {
+                printf("Phase: true\n");
+                std::vector<double> leftArmQ(7,0.0);
+                leftArmQ[0] = 20;
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 20;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+                phase = false;
+            }
+            else
+            {
+                printf("Phase: false\n");
+                std::vector<double> leftArmQ(7,0.0);
+                leftArmQ[0] = -20;
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = -20;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+                phase = true;
+            }
+            break;
+
+        case VOCAB_STATE_SALUTE:
+            printf("Salute\n");
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 45;
+                rightArmQ[2] = 20;
+                rightArmQ[3] = 80;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 45;
+                rightArmQ[2] = -20;
+                rightArmQ[3] = 80;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 45;
+                rightArmQ[2] = 20;
+                rightArmQ[3] = 80;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            state = VOCAB_STATE_ARM_SWINGING;
+            break;
+
+        default:
+            printf("Bad state!\n");
+            break;
+        }
+    }
+
+    return;
 }
 
 /************************************************************************/

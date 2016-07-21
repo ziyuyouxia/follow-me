@@ -21,6 +21,9 @@ void StateMachine::run() {
             _machineState=0;
         } else if(_machineState==0) {
             ttsSay( yarp::os::ConstString("I am ready. Please tell me.") );
+            yarp::os::Bottle cmd;
+            cmd.addVocab(VOCAB_STATE_SALUTE);
+            outCmdPort->write(cmd);
             _machineState=1;
         } else if(_machineState==1) {
             yarp::os::ConstString inStr = asrListen();
