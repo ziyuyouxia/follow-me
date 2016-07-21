@@ -49,6 +49,10 @@
         <name>followMeArmSwing</name>
         <node>localhost</node>
     </module>
+    <connection>
+        <from>/followMeDialogueManager/command:o</from>
+        <to>/followMeArmSwing/dialogueManager/command:i</to>
+    </connection>
 
 </application>
 

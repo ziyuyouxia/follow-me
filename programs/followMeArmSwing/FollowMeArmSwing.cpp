@@ -20,7 +20,7 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
         ::exit(0);
     }
 
-    state = VOCAB_STATE_SALUTE;
+    state = VOCAB_STATE_ARM_SWINGING;
 
     std::string followMeArmSwingStr("/followMeArmSwing");
 
@@ -121,6 +121,10 @@ bool FollowMeArmSwing::read(yarp::os::ConnectionReader& connection)
      b.read(connection);
      // process data in b
      printf("[FollowMeArmSwing] Got %s\n", b.toString().c_str());
+     if( (VOCAB_FOLLOW_ME ==b.get(0).asVocab()) || (VOCAB_STATE_SALUTE ==b.get(0).asVocab()) )
+     {
+         state = VOCAB_STATE_SALUTE;
+     }
      return true;
 }
 

@@ -14,7 +14,7 @@
 
 #define VOCAB_FOLLOW_ME VOCAB4('f','o','l','l')
 #define VOCAB_STOP_FOLLOWING VOCAB4('s','f','o','l')
-
+#define VOCAB_STATE_SALUTE VOCAB4('s','a','l','u')
 
 namespace teo
 {
