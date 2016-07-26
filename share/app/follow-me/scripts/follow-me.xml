@@ -41,8 +41,8 @@
     </connection>
 
     <connection>
-        <from>/followMeDialogueManager/iSpeak:o</from>
-        <to>/icub/speech:rpc</to>
+        <from>/followMeDialogueManager/tts-en:o</from>
+        <to>/tts-en:i</to>
     </connection>
 
     <module>

@@ -27,7 +27,7 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
 
     //-----------------OPEN LOCAL PORTS------------//
     outCmdPort.open("/followMeDialogueManager/command:o");
-    outTtsPort.open("/followMeDialogueManager/iSpeak:o");
+    outTtsPort.open("/followMeDialogueManager/tts-en:o");
     inSrPort.open("/followMeDialogueManager/speechRecognition:i");
     stateMachine.setOutCmdPort(&outCmdPort);
     stateMachine.setOutTtsPort(&outTtsPort);
