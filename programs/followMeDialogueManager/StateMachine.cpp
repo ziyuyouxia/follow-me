@@ -17,10 +17,10 @@ bool StateMachine::threadInit() {
 void StateMachine::run() {
     while(!isStopping()) {
         if(_machineState==-1) {
-            ttsSay( yarp::os::ConstString("Sorry, I do not know what that is.") );
+            ttsSay( yarp::os::ConstString("Could you please repeat") );
             _machineState=0;
         } else if(_machineState==0) {
-            ttsSay( yarp::os::ConstString("I am ready. Please tell me.") );
+            ttsSay( yarp::os::ConstString("I am ready") );  //-- , please tell me
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STATE_SALUTE);
             outCmdPort->write(cmd);
@@ -33,7 +33,7 @@ void StateMachine::run() {
             else if ( _inStrState1.find("stop following") != yarp::os::ConstString::npos ) _machineState=3;
             else _machineState=-1;
         } else if (_machineState==2) {
-            ttsSay( yarp::os::ConstString("Okay, I will follow you.") );
+            ttsSay( yarp::os::ConstString("Okay, I will follow you") );
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_FOLLOW_ME);
             outCmdPort->write(cmd);
@@ -54,10 +54,18 @@ void StateMachine::run() {
 /************************************************************************/
 
 void StateMachine::ttsSay(const yarp::os::ConstString& sayConstString) {
-    yarp::os::Bottle bOut;
+    /*yarp::os::Bottle bOutStop, bResStop;
+    bOutStop.addString("stop");
+    outTtsPort->write(bOutStop,bResStop);
+
+    yarp::os::Time::delay(0.5);*/
+
+    yarp::os::Bottle bOut, bRes;
+    bOut.addString("say");
     bOut.addString(sayConstString);
-    outTtsPort->write(bOut);
-    printf("[StateMachine] Said: %s\n", sayConstString.c_str());
+    outTtsPort->write(bOut,bRes);
+    printf("[StateMachine] Said: %s [%s]\n", sayConstString.c_str(), bRes.toString().c_str());
+    yarp::os::Time::delay(0.5);
     return;
 }
 
@@ -89,7 +97,7 @@ void StateMachine::setOutCmdPort(yarp::os::Port* outCmdPort) {
 
 /************************************************************************/
 
-void StateMachine::setOutTtsPort(yarp::os::Port* outTtsPort) {
+void StateMachine::setOutTtsPort(yarp::os::RpcClient* outTtsPort) {
     this->outTtsPort = outTtsPort;
 }
 

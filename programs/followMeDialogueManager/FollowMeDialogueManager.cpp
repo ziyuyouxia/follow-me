@@ -27,16 +27,21 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
 
     //-----------------OPEN LOCAL PORTS------------//
     outCmdPort.open("/followMeDialogueManager/command:o");
-    outTtsPort.open("/followMeDialogueManager/tts-en:o");
+    outTtsPort.open("/followMeDialogueManager/espeak/rpc:c");
     inSrPort.open("/followMeDialogueManager/speechRecognition:i");
     stateMachine.setOutCmdPort(&outCmdPort);
     stateMachine.setOutTtsPort(&outTtsPort);
     stateMachine.setInSrPort(&inSrPort);
     while(1){
         if(outTtsPort.getOutputCount() > 0) break;
-        printf("Waiting for \"/followMeDialogueManager/tts:o\" to be connected to something...\n");
+        printf("Waiting for \"/followMeDialogueManager/espeak/rpc:c\" to be connected to something...\n");
         yarp::os::Time::delay(0.5);
-    }    
+    }
+    yarp::os::Bottle bOut, bRes;
+    bOut.addString("setLanguage");
+    bOut.addString("mb-en1");
+    outTtsPort.write(bOut,bRes);
+
     stateMachine.start();
     return true;
 }
