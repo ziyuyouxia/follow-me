@@ -41,8 +41,8 @@
     </connection>
 
     <connection>
-        <from>/followMeDialogueManager/espeak/rpc:c</from>
-        <to>/espeak/rpc:s</to>
+        <from>/followMeDialogueManager/tts/rpc:c</from>
+        <to>/tts/rpc:s</to>
     </connection>
 
     <module>
