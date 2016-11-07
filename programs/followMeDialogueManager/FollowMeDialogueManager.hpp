@@ -20,7 +20,7 @@ class FollowMeDialogueManager : public yarp::os::RFModule {
   private:
     StateMachine stateMachine;
     yarp::os::BufferedPort<yarp::os::Bottle> inSrPort;
-    yarp::os::Port outTtsPort;
+    yarp::os::RpcClient outTtsPort;
     yarp::os::Port outCmdPort;
 
     bool interruptModule();

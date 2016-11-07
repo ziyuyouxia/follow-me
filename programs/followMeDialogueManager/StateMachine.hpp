@@ -29,7 +29,7 @@ protected:
 
     yarp::os::BufferedPort<yarp::os::Bottle> *inSrPort;
     yarp::os::Port *outCmdPort;
-    yarp::os::Port *outTtsPort;
+    yarp::os::RpcClient *outTtsPort;
 
     int _machineState;
 
@@ -70,7 +70,7 @@ public:
     void setOutCmdPort(yarp::os::Port* outCmdPort);
 
     /** Register an output Port for tts. */
-    void setOutTtsPort(yarp::os::Port* outTtsPort);
+    void setOutTtsPort(yarp::os::RpcClient *outTtsPort);
 
 };
 
