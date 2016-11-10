@@ -32,6 +32,7 @@ protected:
     yarp::os::RpcClient *outTtsPort;
 
     int _machineState;
+    char sentence;
 
     yarp::os::ConstString _inStrState1;
 
