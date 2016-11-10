@@ -15,31 +15,31 @@ bool StateMachine::threadInit() {
 /************************************************************************/
 
 void StateMachine::run() {
+    ttsSay( yarp::os::ConstString("Follow me, demostration started. I am ready. Please, tell me") );
     while(!isStopping()) {
-        if(_machineState==-1) {
-            ttsSay( yarp::os::ConstString("Could you please repeat") );
-            _machineState=0;
-        } else if(_machineState==0) {
-            ttsSay( yarp::os::ConstString("I am ready") );  //-- , please tell me
+         if(_machineState==0) {
+            //ttsSay( yarp::os::ConstString("I am ready") );  //-- , please tell me
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STATE_SALUTE);
             outCmdPort->write(cmd);
             _machineState=1;
         } else if(_machineState==1) {
-            yarp::os::ConstString inStr = asrListen();
+            yarp::os::ConstString inStr = asrListen();            
             // Blocking
             _inStrState1 = inStr;
             if( _inStrState1.find("follow me") != yarp::os::ConstString::npos ) _machineState=2;
             else if ( _inStrState1.find("stop following") != yarp::os::ConstString::npos ) _machineState=3;
-            else _machineState=-1;
+            else _machineState=0;
         } else if (_machineState==2) {
             ttsSay( yarp::os::ConstString("Okay, I will follow you") );
+            //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_FOLLOW_ME);
             outCmdPort->write(cmd);
             _machineState=0;
         } else if (_machineState==3) {
             ttsSay( yarp::os::ConstString("Okay, I will stop following you") );
+            //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STOP_FOLLOWING);
             outCmdPort->write(cmd);
