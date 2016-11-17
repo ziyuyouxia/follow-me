@@ -36,12 +36,12 @@
     </connection>
 
     <connection>
-        <from>/followMeDialogueManager/speechRecognition/setDictionary/rpc:c</from>
+        <from>/followMeDialogueManager/speechRecognition/rpc:c</from>
         <to>/speechRecognition/rpc:s</to>
     </connection>
     <connection>
         <from>/speechRecognition:o</from>
-        <to>/followMeDialogueManager/speechRecognition:i</to>
+        <to>/followMeDialogueManager/speechRecognition/speech:i</to>
     </connection>   
 
     <connection>

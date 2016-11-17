@@ -28,15 +28,17 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     //-----------------OPEN LOCAL PORTS------------//
     outCmdPort.open("/followMeDialogueManager/command:o");
     outTtsPort.open("/followMeDialogueManager/tts/rpc:c");
-    inSrPort.open("/followMeDialogueManager/speechRecognition:i");
-    outSrecPort.open("/followMeDialogueManager/speechRecognition/setDictionary/rpc:c");    
+    inSrPort.open("/followMeDialogueManager/speechRecognition/speech:i"); // -- words (input)
+    outSrecPort.open("/followMeDialogueManager/speechRecognition/rpc:c"); // -- setDictionary (client)
+    testPort.open("/followMeDialogueManager/miPuertoGuay/testSuperMegaLargo/rpc:c");
     stateMachine.setOutCmdPort(&outCmdPort);
     stateMachine.setOutTtsPort(&outTtsPort);
     stateMachine.setInSrPort(&inSrPort);
 
     while(1){
+        printf("Number of conections: %d\n", outSrecPort.getOutputCount());
         if(outSrecPort.getOutputCount() > 0) break;
-        printf("Waiting for \"/followMeDialogueManager/speechRecognition/setDictionary/rpc:c\" to be connected to \"/speechRecognition/rpc:s\"\n");
+        printf("Waiting for \"/followMeDialogueManager/speechRecognition/setDictionary/rpc:c\" to be connected to something...\n");
         yarp::os::Time::delay(0.5);
     }
 
