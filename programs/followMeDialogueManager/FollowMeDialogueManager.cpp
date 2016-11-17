@@ -28,19 +28,37 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     //-----------------OPEN LOCAL PORTS------------//
     outCmdPort.open("/followMeDialogueManager/command:o");
     outTtsPort.open("/followMeDialogueManager/tts/rpc:c");
-    inSrPort.open("/followMeDialogueManager/speechRecognition:i");
+    inSrPort.open("/followMeDialogueManager/speechRecognition/speech:i"); // -- words (input)
+    outSrecPort.open("/followMeDialogueManager/speechRecognition/rpc:c"); // -- setDictionary (client)
+    testPort.open("/followMeDialogueManager/miPuertoGuay/testSuperMegaLargo/rpc:c");
     stateMachine.setOutCmdPort(&outCmdPort);
     stateMachine.setOutTtsPort(&outTtsPort);
     stateMachine.setInSrPort(&inSrPort);
+
+    while(1){
+        if(outSrecPort.getOutputCount() > 0) break;
+        printf("Waiting for \"/followMeDialogueManager/speechRecognition/rpc:c\" to be connected to something...\n");
+        yarp::os::Time::delay(0.5);
+    }
+
     while(1){
         if(outTtsPort.getOutputCount() > 0) break;
         printf("Waiting for \"/followMeDialogueManager/tts/rpc:c\" to be connected to something...\n");
         yarp::os::Time::delay(0.5);
     }
-    yarp::os::Bottle bOut, bRes;
+
+    yarp::os::Bottle bOut, bRec;
+
+    // -- Speaking
     bOut.addString("setLanguage");
-    bOut.addString("mb-en1");
-    outTtsPort.write(bOut,bRes);
+    bOut.addString("mb-en1");   
+    outTtsPort.write(bOut);
+
+    // -- Hearing
+    bRec.addString("setDictionary");
+    bRec.addString("follow-me");
+    bRec.addString("english"); // -- This can be changed in the future (with spanish)
+    outSrecPort.write(bRec);
 
     stateMachine.start();
     return true;
