@@ -30,7 +30,6 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     outTtsPort.open("/followMeDialogueManager/tts/rpc:c");
     inSrPort.open("/followMeDialogueManager/speechRecognition/speech:i"); // -- words (input)
     outSrecPort.open("/followMeDialogueManager/speechRecognition/rpc:c"); // -- setDictionary (client)
-    testPort.open("/followMeDialogueManager/miPuertoGuay/testSuperMegaLargo/rpc:c");
     stateMachine.setOutCmdPort(&outCmdPort);
     stateMachine.setOutTtsPort(&outTtsPort);
     stateMachine.setInSrPort(&inSrPort);
