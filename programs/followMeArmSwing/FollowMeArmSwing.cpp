@@ -125,6 +125,9 @@ bool FollowMeArmSwing::read(yarp::os::ConnectionReader& connection)
      {
          state = VOCAB_STATE_SALUTE;
      }
+     else if (VOCAB_STOP_FOLLOWING ==b.get(0).asVocab())
+         state = VOCAB_STOP_FOLLOWING;
+
      return true;
 }
 
@@ -142,6 +145,7 @@ void FollowMeArmSwing::run()
                 printf("Phase: true\n");
                 std::vector<double> leftArmQ(7,0.0);
                 leftArmQ[0] = 20;
+                leftArmQ[1] = 5;
                 std::vector<double> rightArmQ(7,0.0);
                 rightArmQ[0] = 20;
                 armJointsMoveAndWait(leftArmQ,rightArmQ);
@@ -152,6 +156,7 @@ void FollowMeArmSwing::run()
                 printf("Phase: false\n");
                 std::vector<double> leftArmQ(7,0.0);
                 leftArmQ[0] = -20;
+                leftArmQ[1] = 5;
                 std::vector<double> rightArmQ(7,0.0);
                 rightArmQ[0] = -20;
                 armJointsMoveAndWait(leftArmQ,rightArmQ);
@@ -186,6 +191,16 @@ void FollowMeArmSwing::run()
                 armJointsMoveAndWait(leftArmQ,rightArmQ);
             }
             state = VOCAB_STATE_ARM_SWINGING;
+            break;
+
+        case VOCAB_STOP_FOLLOWING:
+            printf("Stop Following\n");
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
             break;
 
         default:
