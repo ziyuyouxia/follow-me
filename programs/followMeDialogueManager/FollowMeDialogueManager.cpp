@@ -10,11 +10,13 @@ namespace teo
 bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
 
     //ConstString fileName(DEFAULT_FILE_NAME);
+    std::string language = rf.check("language",yarp::os::Value(DEFAULT_LANGUAGE),"language to be used").asString();
     
     printf("--------------------------------------------------------------\n");
     if (rf.check("help")) {
         printf("FollowMeDialogueManager options:\n");
         printf("\t--help (this help)\t--from [file.ini]\t--context [path]\n");
+        printf("\t--language (default: \"%s\")\n",language.c_str());
         //printf("\t--file (default: \"%s\")\n",fileName.c_str());
     }
     //if (rf.check("file")) fileName = rf.find("file").asString();
@@ -49,6 +51,7 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     yarp::os::Bottle bOut, bRec;
 
     // -- Speaking
+    /*
     bOut.addString("setLanguage");
     bOut.addString("mb-en1");   
     outTtsPort.write(bOut);
@@ -58,6 +61,36 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     bRec.addString("follow-me");
     bRec.addString("english"); // -- This can be changed in the future (with spanish)
     outSrecPort.write(bRec);
+*/
+
+    //--------------------------
+
+    bOut.addString("setLanguage");
+    bRec.addString("setDictionary");
+    bRec.addString("follow-me");
+
+    if( language == "english" )
+    {
+        bOut.addString("mb-en1");
+        bRec.addString(language );
+    }
+    else if ( language == "spanish" )
+    {
+        bOut.addString("mb-es1");
+        bRec.addString("english"); // -- cambiar a "language" cuando tengamos reconocimiento en español
+    }
+    else
+    {
+        printf("Language not found. Please use '--language english' or '--language spanish'");
+        return false;
+    }
+
+    outTtsPort.write(bOut);
+    outSrecPort.write(bRec);
+
+    stateMachine.setLanguage(language);
+    stateMachine.setSpeakLanguage(language);
+
 
     stateMachine.start();
     return true;

@@ -8,6 +8,8 @@
 
 #include "StateMachine.hpp"
 
+#define DEFAULT_LANGUAGE "english"
+
 namespace teo
 {
 
