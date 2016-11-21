@@ -30,11 +30,29 @@ protected:
     yarp::os::BufferedPort<yarp::os::Bottle> *inSrPort;
     yarp::os::Port *outCmdPort;
     yarp::os::RpcClient *outTtsPort;
+    yarp::os::ConstString _inStrState1;
 
     int _machineState;
     char sentence;
 
-    yarp::os::ConstString _inStrState1;
+    std::string _language;
+
+    // input variables
+    std::string followMe;
+    std::string myNameIs;
+    std::string stopFollowing;
+    // output variables
+    std::string presentation1;
+    std::string presentation2;
+    std::string presentation3;
+    std::string askName;
+    std::string answer1;
+    std::string answer2;
+    std::string answer3;
+    std::string notUnderstand;
+    std::string okFollow;
+    std::string stopFollow;
+
 
     void ttsSay(const yarp::os::ConstString& sayConstString);
     yarp::os::ConstString asrListen();
@@ -72,6 +90,12 @@ public:
 
     /** Register an output Port for tts. */
     void setOutTtsPort(yarp::os::RpcClient *outTtsPort);
+
+    /** set language in speechRecognition port */
+    bool setLanguage(std::string language);
+
+    /** set language for speaking */
+    bool setSpeakLanguage(std::string language);
 
 };
 
