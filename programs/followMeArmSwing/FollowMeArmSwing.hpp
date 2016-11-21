@@ -12,6 +12,7 @@
 
 #define VOCAB_STATE_SALUTE VOCAB4('s','a','l','u')
 #define VOCAB_STATE_ARM_SWINGING VOCAB4('s','w','i','n')
+#define VOCAB_STOP_FOLLOWING VOCAB4('s','f','o','l')
 
 namespace teo
 {
