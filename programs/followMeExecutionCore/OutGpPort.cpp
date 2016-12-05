@@ -14,6 +14,10 @@ void OutGpPort::onRead(Bottle& b) {
 //------------------- Obtain current joint position --------------------
 
 void OutGpPort::getHeadPos(double *vectPos){
+    RpcServer port;
+    port.open("/followMeExecutionCore/getPosition/state:o"); // -- output port
+    Bottle out;
+
     std::vector<double> currentQ(2);
 
     if ( ! iEncoders->getEncoders( currentQ.data() ) )
@@ -22,7 +26,10 @@ void OutGpPort::getHeadPos(double *vectPos){
         return;
     }
     else
-        vectPos = currentQ.data(); // -- A pointer to the first element in the array used internally by the vector.
+    {
+        out.write(currentQ); // -- A pointer to the first element in the array used internally by the vector.
+        port.reply(out);     // -- Send reply.
+    }
 }
 
 /************************************************************************/
