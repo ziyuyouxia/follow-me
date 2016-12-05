@@ -61,12 +61,17 @@ void StateMachine::run() {
          }
         else if(_machineState==2)
         {
+            // -- Example for sending GET_POSITION order
+            yarp::os::Bottle cmd;
+            cmd.addVocab(VOCAB_GET_POSITION);
+            outCmdPort->write(cmd);
+
             yarp::os::ConstString inStr = asrListen();
             // Blocking
             _inStrState1 = inStr;
             if( _inStrState1.find(followMe) != yarp::os::ConstString::npos ) _machineState=3;
             else if ( _inStrState1.find(stopFollowing) != yarp::os::ConstString::npos ) _machineState=4;
-            else _machineState=2;
+            else _machineState=2;            
         } else if (_machineState==3) {
             ttsSay( okFollow );
             //yarp::os::Time::delay(0.5);
