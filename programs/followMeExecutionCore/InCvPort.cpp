@@ -23,6 +23,7 @@ void InCvPort::onRead(Bottle& b) {
 
 }
 //------------------- Obtain current joint position --------------------
+
 void InCvPort::getHeadPos(double *vectPos){
     std::vector<double> currentQ(2);
 
