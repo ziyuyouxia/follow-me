@@ -40,6 +40,7 @@ protected:
         /** Callback on incoming Bottle. **/
         virtual void onRead(Bottle& b);
 
+        yarp::dev::IEncoders * iEncoder;
         yarp::dev::IPositionControl *iPositionControl;
 
 
