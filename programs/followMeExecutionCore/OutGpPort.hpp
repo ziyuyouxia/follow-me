@@ -23,10 +23,13 @@ namespace teo
  *
  */
 class OutGpPort : public BufferedPort<Bottle> {
-    public:
+public:
+    void getPosition(bool value);
+    void getHeadPos(double *vectPos);
+
 
 protected:
-        bool follow;
+        bool position;
 
         /** Callback on incoming Bottle. **/
         virtual void onRead(Bottle& b);

@@ -32,7 +32,6 @@ class InCvPort : public BufferedPort<Bottle> {
         }
 
         void setFollow(bool value);
-        void getHeadPos(double *vectPos);
 
 
 protected:
@@ -43,8 +42,6 @@ protected:
 
         yarp::dev::IPositionControl *iPositionControl;
 
-        //-- Robot device        
-        yarp::dev::IEncoders *iEncoders;
 
 };
 
