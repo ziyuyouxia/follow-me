@@ -22,7 +22,18 @@ void InCvPort::onRead(Bottle& b) {
     if( y < -50 ) iPositionControl->relativeMove(1, -2);
 
 }
+//------------------- Obtain current joint position --------------------
+void InCvPort::getHeadPos(double *vectPos){
+    std::vector<double> currentQ(2);
 
+    if ( ! iEncoders->getEncoders( currentQ.data() ) )
+    {
+        printf("getEncoders failed, not updating control this iteration.\n");
+        return;
+    }
+    else
+        vectPos = currentQ.data(); // -- A pointer to the first element in the array used internally by the vector.
+}
 /************************************************************************/
 
 void InCvPort::setFollow(bool value)
