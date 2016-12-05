@@ -44,6 +44,7 @@ bool FollowMeExecutionCore::configure(ResourceFinder &rf) {
         return false;
     }
     inCvPort.setIPositionControl(iPositionControl);
+    inSrPort.setIEncoders(iEncoders);
 
     //-----------------OPEN LOCAL PORTS------------//
     inSrPort.setInCvPortPtr(&inCvPort);

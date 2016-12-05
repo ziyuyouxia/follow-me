@@ -17,6 +17,9 @@ void InSrPort::onRead(Bottle& b) {
             printf("stopFollowing\n");
             inCvPortPtr->setFollow(false);
             break;
+        case: VOCAB_WA
+            // implementar movimiento brazo dependiendo de iEncoders
+                iEncoders->
         default:
             break;
     }
