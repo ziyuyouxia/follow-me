@@ -33,6 +33,7 @@ class FollowMeExecutionCore : public RFModule {
         InCvPort inCvPort;
         yarp::dev::PolyDriver headDevice;
         yarp::dev::IPositionControl *iPositionControl;
+        yarp::dev::IEncoders *iEncoders;
 
         bool interruptModule();
         double getPeriod();
