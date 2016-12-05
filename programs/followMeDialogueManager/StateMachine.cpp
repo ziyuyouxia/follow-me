@@ -61,9 +61,9 @@ void StateMachine::run() {
          }
         else if(_machineState==2)
         {
-            // -- Example for sending GET_POSITION order
+            // -- Example of WAVE_APPROPRIATE_HAND
             yarp::os::Bottle cmd;
-            cmd.addVocab(VOCAB_GET_POSITION);
+            cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
             outCmdPort->write(cmd);
 
             yarp::os::ConstString inStr = asrListen();
