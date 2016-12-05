@@ -17,9 +17,20 @@ void InSrPort::onRead(Bottle& b) {
             printf("stopFollowing\n");
             inCvPortPtr->setFollow(false);
             break;
-        case: VOCAB_WA
+        case VOCAB_WAVE_APPROPRIATE_HAND:
             // implementar movimiento brazo dependiendo de iEncoders
-                iEncoders->
+            double *encValue;
+            if ( ! iEncoders->getEncoder(0, encValue) ){
+                printf("Error: getEncoder failed\n");
+                return;
+            }
+
+            if(*encValue > 30)
+                printf("MOVE THE RIGHT ARM\n");
+
+            if(*encValue < 30)
+                printf("MOVE THE LEFT ARM\n");
+
         default:
             break;
     }
