@@ -7,6 +7,7 @@
 #include <yarp/dev/all.h>
 #include <stdlib.h>
 
+
 #define VOCAB_FOLLOW_ME VOCAB4('f','o','l','l')
 #define VOCAB_STOP_FOLLOWING VOCAB4('s','f','o','l')
 
@@ -31,6 +32,8 @@ class InCvPort : public BufferedPort<Bottle> {
         }
 
         void setFollow(bool value);
+        void getHeadPos(double *vectPos);
+
 
 protected:
         bool follow;
@@ -39,6 +42,10 @@ protected:
         virtual void onRead(Bottle& b);
 
         yarp::dev::IPositionControl *iPositionControl;
+
+        //-- Robot device        
+        yarp::dev::IEncoders *iEncoders;
+
 };
 
 }  // namespace teo
