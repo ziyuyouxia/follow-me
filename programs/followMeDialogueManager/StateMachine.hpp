@@ -15,7 +15,8 @@
 #define VOCAB_FOLLOW_ME VOCAB4('f','o','l','l')
 #define VOCAB_STOP_FOLLOWING VOCAB4('s','f','o','l')
 #define VOCAB_STATE_SALUTE VOCAB4('s','a','l','u')
-#define VOCAB_GET_POSITION VOCAB4('g','p','o','s')
+#define VOCAB_WAVE_APPROPRIATE_HAND VOCAB4('w','a','p','h')
+
 
 namespace teo
 {
