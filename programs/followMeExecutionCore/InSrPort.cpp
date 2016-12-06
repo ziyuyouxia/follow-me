@@ -26,10 +26,10 @@ void InSrPort::onRead(Bottle& b) {
                 return;
             }
 
-            if(encValue > 30)
+            if(encValue > 0)
                 printf("MOVE THE RIGHT ARM\n");
 
-            if(encValue < 30)
+            if(encValue < 0)
                 printf("MOVE THE LEFT ARM\n");
 
         default:
