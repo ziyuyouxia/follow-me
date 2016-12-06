@@ -27,10 +27,10 @@ void InSrPort::onRead(Bottle& b) {
             }
 
             if(encValue > 0)
-                printf("MOVE THE RIGHT ARM\n");
+                printf("USER IS ON LEFT -> MOVE THE LEFT ARM\n");
 
             if(encValue < 0)
-                printf("MOVE THE LEFT ARM\n");
+                printf("USER IS ON RIGHT -> MOVE THE RIGHT ARM\n");
 
         default:
             break;
