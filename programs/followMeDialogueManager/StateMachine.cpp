@@ -133,6 +133,7 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
         counter++;
         if (counter == 10000)  //-- IMPORTANT: THIS LINE PLUS THE DELAY MARK THE PERIOD
         {
+            counter = 0;
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
             outCmdPort->write(cmd);
