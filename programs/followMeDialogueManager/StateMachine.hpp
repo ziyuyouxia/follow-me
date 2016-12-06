@@ -58,6 +58,7 @@ protected:
 
     void ttsSay(const yarp::os::ConstString& sayConstString);
     yarp::os::ConstString asrListen();
+    yarp::os::ConstString asrListenWithPeriodicWave();
 
 public:
 
