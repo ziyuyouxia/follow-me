@@ -39,7 +39,12 @@ bool FollowMeExecutionCore::configure(ResourceFinder &rf) {
         printf("view(iPositionControl) not worked.\n");
         return false;
     }
+    if( ! headDevice.view(iEncoders) ) {
+        printf("view(iEncoders) not worked.\n");
+        return false;
+    }
     inCvPort.setIPositionControl(iPositionControl);
+    inSrPort.setIEncoders(iEncoders);
 
     //-----------------OPEN LOCAL PORTS------------//
     inSrPort.setInCvPortPtr(&inCvPort);
