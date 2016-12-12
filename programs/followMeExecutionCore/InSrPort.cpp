@@ -19,17 +19,18 @@ void InSrPort::onRead(Bottle& b) {
             break;
         case VOCAB_WAVE_APPROPRIATE_HAND:
             // implementar movimiento brazo dependiendo de iEncoders
-            double *encValue;
-            if ( ! iEncoders->getEncoder(0, encValue) ){
+            double encValue;
+            if ( ! iEncoders->getEncoder(0, &encValue) )  // 0 es el tilt del cuello (http://robots.uc3m.es/index.php/TEO_Diagrams)
+            {
                 printf("Error: getEncoder failed\n");
                 return;
             }
 
-            if(*encValue > 30)
-                printf("MOVE THE RIGHT ARM\n");
+            if(encValue > 0)
+                printf("USER IS ON LEFT -> MOVE THE LEFT ARM\n");
 
-            if(*encValue < 30)
-                printf("MOVE THE LEFT ARM\n");
+            if(encValue < 0)
+                printf("USER IS ON RIGHT -> MOVE THE RIGHT ARM\n");
 
         default:
             break;
