@@ -61,12 +61,12 @@ void StateMachine::run() {
          }
         else if(_machineState==2)
         {
-            yarp::os::ConstString inStr = asrListen();
+            yarp::os::ConstString inStr = asrListenWithPeriodicWave();
             // Blocking
             _inStrState1 = inStr;
             if( _inStrState1.find(followMe) != yarp::os::ConstString::npos ) _machineState=3;
             else if ( _inStrState1.find(stopFollowing) != yarp::os::ConstString::npos ) _machineState=4;
-            else _machineState=2;
+            else _machineState=2;            
         } else if (_machineState==3) {
             ttsSay( okFollow );
             //yarp::os::Time::delay(0.5);
@@ -108,10 +108,38 @@ void StateMachine::ttsSay(const yarp::os::ConstString& sayConstString) {
 
 /************************************************************************/
 
-yarp::os::ConstString StateMachine::asrListen() {
+yarp::os::ConstString StateMachine::asrListen()
+{
     yarp::os::Bottle* bIn = inSrPort->read(true);  // shouldWait
     printf("[StateMachine] Listened: %s\n", bIn->toString().c_str());
     return bIn->get(0).asString();
+}
+
+/************************************************************************/
+
+yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
+    int counter = 0;
+    while( true ) // read loop
+    {
+        yarp::os::Bottle* bIn = inSrPort->read(false);  //-- IMPORTANT: should not wait
+        //-- If we read something, we return it immediately
+        if ( bIn != NULL)
+        {
+            printf("[StateMachine] Listened: %s\n", bIn->toString().c_str());
+            return bIn->get(0).asString();
+        }
+        //-- And if not, we wait, increment a counter that
+        yarp::os::Time::delay(0.1);
+        counter++;
+        if (counter == 10000)  //-- IMPORTANT: THIS LINE PLUS THE DELAY MARK THE PERIOD
+        {
+            counter = 0;
+            yarp::os::Bottle cmd;
+            cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
+            outCmdPort->write(cmd);
+        }
+        //-- ...to finally continue the read loop.
+    }
 }
 
 /************************************************************************/

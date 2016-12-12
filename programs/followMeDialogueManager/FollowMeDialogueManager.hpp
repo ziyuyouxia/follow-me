@@ -24,12 +24,12 @@ class FollowMeDialogueManager : public yarp::os::RFModule {
     yarp::os::BufferedPort<yarp::os::Bottle> inSrPort;
     yarp::os::RpcClient outTtsPort;
     yarp::os::RpcClient outSrecPort; // SpeechRecognition port
-    yarp::os::RpcClient testPort; // -- BORRAR
     yarp::os::Port outCmdPort;    
 
     bool interruptModule();
     double getPeriod();
     bool updateModule();
+
 
   public:
     bool configure(yarp::os::ResourceFinder &rf);
