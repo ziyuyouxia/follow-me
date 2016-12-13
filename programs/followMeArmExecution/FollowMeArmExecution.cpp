@@ -62,7 +62,7 @@ bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
 
     phase = false;
 
-    inDialogPort.open("/followMeArmExecution/dialogueManager/command:i");
+    inDialogPort.open("/followMeArmExecution/dialogueManager/rpc:i");
     inDialogPort.setReader(*this);  //-- Callback reader: avoid need to call inSrPort.read().
 
     return this->start();  //-- Start the thread (calls run).
