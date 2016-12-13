@@ -25,7 +25,7 @@ void StateMachine::run() {
             ttsSay( askName );  //-- , please tell me
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STATE_SALUTE);
-            outCmdPort->write(cmd);
+            outCmdArmPort->write(cmd);
             _machineState=1;
          }
          else if(_machineState==1)
@@ -72,14 +72,14 @@ void StateMachine::run() {
             //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_FOLLOW_ME);
-            outCmdPort->write(cmd);
+            outCmdHeadPort->write(cmd);
             _machineState=0;
         } else if (_machineState==4) {
             ttsSay( stopFollow );
             //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STOP_FOLLOWING);
-            outCmdPort->write(cmd);
+            outCmdHeadPort->write(cmd);
             _machineState=2;
         } else {
             ttsSay( yarp::os::ConstString("ANOMALY") );
@@ -136,7 +136,7 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
             counter = 0;
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
-            outCmdPort->write(cmd);
+            outCmdArmPort->write(cmd);
         }
         //-- ...to finally continue the read loop.
     }
@@ -156,8 +156,14 @@ void StateMachine::setInSrPort(yarp::os::BufferedPort<yarp::os::Bottle>* inSrPor
 
 /************************************************************************/
 
-void StateMachine::setOutCmdPort(yarp::os::Port* outCmdPort) {
-    this->outCmdPort = outCmdPort;
+void StateMachine::setOutCmdHeadPort(yarp::os::RpcClient* outCmdPort) {
+    this->outCmdHeadPort = outCmdPort;
+}
+
+/************************************************************************/
+
+void StateMachine::setOutCmdArmPort(yarp::os::RpcClient* outCmdPort) {
+    this->outCmdArmPort = outCmdPort;
 }
 
 /************************************************************************/
