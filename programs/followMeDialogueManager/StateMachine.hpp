@@ -30,7 +30,10 @@ class StateMachine : public yarp::os::Thread {
 protected:
 
     yarp::os::BufferedPort<yarp::os::Bottle> *inSrPort;
-    yarp::os::Port *outCmdPort;
+
+    yarp::os::RpcClient *outCmdHeadPort;
+    yarp::os::RpcClient *outCmdArmPort;
+
     yarp::os::RpcClient *outTtsPort;
     yarp::os::ConstString _inStrState1;
 
@@ -88,8 +91,11 @@ public:
     /** Register an input callback port for asr. */
     void setInSrPort(yarp::os::BufferedPort<yarp::os::Bottle>* inSrPort);
 
-    /** Register an output Port for commands. */
-    void setOutCmdPort(yarp::os::Port* outCmdPort);
+    /** Register an output Port for [HEAD] commands. */
+    void setOutCmdHeadPort(yarp::os::RpcClient* outCmdPort);
+
+    /** Register an output Port for [ARMS] commands. */
+    void setOutCmdArmPort(yarp::os::RpcClient* outCmdPort);
 
     /** Register an output Port for tts. */
     void setOutTtsPort(yarp::os::RpcClient *outTtsPort);

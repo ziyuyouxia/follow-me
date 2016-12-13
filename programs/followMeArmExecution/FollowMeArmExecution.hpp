@@ -48,8 +48,9 @@ private:
      /** State */
      int state;
 
-     /** Input port from speech recognition */
-     yarp::os::Port inSrPort;
+     /** Input port from dialogue manager */
+     yarp::os::RpcServer inDialogPort;
+
      /** Treats data received from input port from speech recognition */
      virtual bool read(yarp::os::ConnectionReader& connection);
 

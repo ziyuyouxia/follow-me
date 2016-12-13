@@ -62,8 +62,8 @@ bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
 
     phase = false;
 
-    inSrPort.open("/followMeArmExecution/dialogueManager/command:i");
-    inSrPort.setReader(*this);  //-- Callback reader: avoid need to call inSrPort.read().
+    inDialogPort.open("/followMeArmExecution/dialogueManager/rpc:s");
+    inDialogPort.setReader(*this);  //-- Callback reader: avoid need to call inSrPort.read().
 
     return this->start();  //-- Start the thread (calls run).
 }
@@ -73,7 +73,7 @@ bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
 bool FollowMeArmExecution::interruptModule()
 {
     this->stop();
-    inSrPort.interrupt();
+    inDialogPort.interrupt();
     leftArmDevice.close();
     return true;
 }
