@@ -19,12 +19,12 @@ namespace teo
 {
 
 /**
- * @ingroup followMeExecutionCore
+ * @ingroup followMeHeadExecution
  *
  * @brief Execution Core 1.
  *
  */
-class FollowMeExecutionCore : public RFModule {
+class FollowMeHeadExecution : public RFModule {
     public:
         bool configure(ResourceFinder &rf);
 

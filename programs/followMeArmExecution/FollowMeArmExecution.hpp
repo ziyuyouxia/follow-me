@@ -17,7 +17,7 @@
 namespace teo
 {
 
-class FollowMeArmSwing : public yarp::os::RFModule, public yarp::os::PortReader, public yarp::os::Thread
+class FollowMeArmExecution : public yarp::os::RFModule, public yarp::os::PortReader, public yarp::os::Thread
 {
 public:
      virtual bool configure(yarp::os::ResourceFinder &rf);

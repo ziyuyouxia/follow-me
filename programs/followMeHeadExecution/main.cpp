@@ -3,28 +3,28 @@
 /**
  *
  * @ingroup follow-me_programs
- * \defgroup followMeExecutionCore followMeExecutionCore
+ * \defgroup followMeHeadExecution followMeHeadExecution
  *
- * @brief Creates an instance of teo::FollowMeExecutionCore.
+ * @brief Creates an instance of teo::FollowMeHeadExecution.
  *
- * @section followMeExecutionCore_legal Legal
+ * @section followMeHeadExecution_legal Legal
  *
  * Copyright: 2016 (C) Universidad Carlos III de Madrid
  *
- * Author: <a href="http://roboticslab.uc3m.es/roboticslab/persona.php?id_pers=72">Juan G. Victores</a>
+ * Author: <a href="http://roboticslab.uc3m.es/roboticslab/persona.php?id_pers=72">Juan G. Victores</a> and <a href="http://roboticslab.uc3m.es/roboticslab/people/r-de-santos">Raul de Santos Rico</a>
  *
  * CopyPolicy: This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License 3.0 or later
  *
  * <hr>
  *
- * This file can be edited at followMeExecutionCore
+ * This file can be edited at followMeHeadExecution
  *
  */
 
 #include <yarp/os/all.h>
 
-#include "FollowMeExecutionCore.hpp"
+#include "FollowMeHeadExecution.hpp"
 
 using namespace yarp::os;
 
@@ -32,11 +32,11 @@ int main(int argc, char **argv) {
 
     ResourceFinder rf;
     rf.setVerbose(true);
-    rf.setDefaultContext("followMeExecutionCore");
-    rf.setDefaultConfigFile("followMeExecutionCore.ini");
+    rf.setDefaultContext("followMeHeadExecution");
+    rf.setDefaultConfigFile("followMeHeadExecution.ini");
     rf.configure(argc, argv);
 
-    teo::FollowMeExecutionCore mod;
+    teo::FollowMeHeadExecution mod;
     if(rf.check("help")) {
         return mod.runModule(rf);
     }

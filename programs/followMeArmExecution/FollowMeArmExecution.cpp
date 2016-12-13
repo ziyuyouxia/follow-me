@@ -1,20 +1,20 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#include "FollowMeArmSwing.hpp"
+#include "FollowMeArmExecution.hpp"
 
 namespace teo
 {
 
 /************************************************************************/
 
-bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
+bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
 {
     std::string robot = rf.check("robot",yarp::os::Value(DEFAULT_ROBOT),"name of /robot to be used").asString();
 
     printf("--------------------------------------------------------------\n");
     if (rf.check("help"))
     {
-        printf("FollowMeArmSwing options:\n");
+        printf("FollowMeArmExecution options:\n");
         printf("\t--help (this help)\t--from [file.ini]\t--context [path]\n");
         printf("\t--robot: %s [%s]\n",robot.c_str(),DEFAULT_ROBOT);
         ::exit(0);
@@ -22,12 +22,12 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 
     state = VOCAB_STATE_ARM_SWINGING;
 
-    std::string followMeArmSwingStr("/followMeArmSwing");
+    std::string followMeArmExecutionStr("/followMeArmExecution");
 
     yarp::os::Property leftArmOptions;
     leftArmOptions.put("device","remote_controlboard");
     leftArmOptions.put("remote",robot+"/leftArm");
-    leftArmOptions.put("local",followMeArmSwingStr+robot+"/leftArm");
+    leftArmOptions.put("local",followMeArmExecutionStr+robot+"/leftArm");
     leftArmDevice.open(leftArmOptions);
     if(!leftArmDevice.isValid()) {
       printf("robot leftArm device not available.\n");
@@ -45,7 +45,7 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
     yarp::os::Property rightArmOptions;
     rightArmOptions.put("device","remote_controlboard");
     rightArmOptions.put("remote",robot+"/rightArm");
-    rightArmOptions.put("local",followMeArmSwingStr+robot+"/rightArm");
+    rightArmOptions.put("local",followMeArmExecutionStr+robot+"/rightArm");
     rightArmDevice.open(rightArmOptions);
     if(!rightArmDevice.isValid()) {
       printf("robot rightArm device not available.\n");
@@ -62,7 +62,7 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 
     phase = false;
 
-    inSrPort.open("/followMeArmSwing/dialogueManager/command:i");
+    inSrPort.open("/followMeArmExecution/dialogueManager/command:i");
     inSrPort.setReader(*this);  //-- Callback reader: avoid need to call inSrPort.read().
 
     return this->start();  //-- Start the thread (calls run).
@@ -70,7 +70,7 @@ bool FollowMeArmSwing::configure(yarp::os::ResourceFinder &rf)
 
 /************************************************************************/
 
-bool FollowMeArmSwing::interruptModule()
+bool FollowMeArmExecution::interruptModule()
 {
     this->stop();
     inSrPort.interrupt();
@@ -80,14 +80,14 @@ bool FollowMeArmSwing::interruptModule()
 
 /************************************************************************/
 
-double FollowMeArmSwing::getPeriod()
+double FollowMeArmExecution::getPeriod()
 {
     return 4.0; // Fixed, in seconds, the slow thread that calls updateModule below
 }
 
 /************************************************************************/
 
-bool FollowMeArmSwing::updateModule()
+bool FollowMeArmExecution::updateModule()
 {
     printf("Entered updateModule...\n");
 
@@ -96,7 +96,7 @@ bool FollowMeArmSwing::updateModule()
 
 /************************************************************************/
 
-bool FollowMeArmSwing::armJointsMoveAndWait(std::vector<double>& leftArmQ, std::vector<double> &rightArmQ)
+bool FollowMeArmExecution::armJointsMoveAndWait(std::vector<double>& leftArmQ, std::vector<double> &rightArmQ)
 {
     rightArmIPositionControl->positionMove( rightArmQ.data() );
     leftArmIPositionControl->positionMove( leftArmQ.data() );
@@ -115,12 +115,12 @@ bool FollowMeArmSwing::armJointsMoveAndWait(std::vector<double>& leftArmQ, std::
 
 /************************************************************************/
 
-bool FollowMeArmSwing::read(yarp::os::ConnectionReader& connection)
+bool FollowMeArmExecution::read(yarp::os::ConnectionReader& connection)
 {
      yarp::os::Bottle b;
      b.read(connection);
      // process data in b
-     printf("[FollowMeArmSwing] Got %s\n", b.toString().c_str());
+     printf("[FollowMeArmExecution] Got %s\n", b.toString().c_str());
      if( (VOCAB_FOLLOW_ME ==b.get(0).asVocab()) || (VOCAB_STATE_SALUTE ==b.get(0).asVocab()) )
      {
          state = VOCAB_STATE_SALUTE;
@@ -133,7 +133,7 @@ bool FollowMeArmSwing::read(yarp::os::ConnectionReader& connection)
 
 /************************************************************************/
 
-void FollowMeArmSwing::run()
+void FollowMeArmExecution::run()
 {
     while( !Thread::isStopping() )
     {
