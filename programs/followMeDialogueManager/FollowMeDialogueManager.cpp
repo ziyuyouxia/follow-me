@@ -28,13 +28,13 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     }
 
     //-----------------OPEN LOCAL PORTS------------//
-    outCmdHeadExecution.open("/followMeDialogueManager/head/command:o");
-    outCmdArmExecution.open("/followMeDialogueManager/arms/command:o");
+    outCmdHeadPort.open("/followMeDialogueManager/head/command:o");
+    outCmdArmPort.open("/followMeDialogueManager/arms/command:o");
     outTtsPort.open("/followMeDialogueManager/tts/rpc:c");
     inSrPort.open("/followMeDialogueManager/speechRecognition/speech:i"); // -- words (input)
     outSrecPort.open("/followMeDialogueManager/speechRecognition/rpc:c"); // -- setDictionary (client)
-    stateMachine.setOutCmdHeadPort(&outCmdHeadExecution);
-    stateMachine.setOutCmdArmPort(&outCmdArmExecution);
+    stateMachine.setOutCmdHeadPort(&outCmdHeadPort);
+    stateMachine.setOutCmdArmPort(&outCmdArmPort);
     stateMachine.setOutTtsPort(&outTtsPort);
     stateMachine.setInSrPort(&inSrPort);
 
