@@ -28,6 +28,7 @@ class FollowMeHeadExecution : public RFModule {
     public:
         bool configure(ResourceFinder &rf);
 
+
     protected:
         InSrPort inSrPort;
         InCvPort inCvPort;
@@ -35,9 +36,14 @@ class FollowMeHeadExecution : public RFModule {
         yarp::dev::IPositionControl *iPositionControl;
         yarp::dev::IEncoders *iEncoders;
 
+        //-- Rpc port to knowing encoder position (reply position port)
+        yarp::os::RpcServer replyPosPort;
+
         bool interruptModule();
         double getPeriod();
         bool updateModule();
+
+
 
 };
 

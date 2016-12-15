@@ -8,6 +8,8 @@ namespace teo
 /************************************************************************/
 
 void InSrPort::onRead(Bottle& b) {
+    Bottle out;
+
     switch ( b.get(0).asVocab() ) {
         case VOCAB_FOLLOW_ME:
             printf("follow\n");
@@ -27,10 +29,15 @@ void InSrPort::onRead(Bottle& b) {
             }
 
             if(encValue > 0)
+            {
                 printf("USER IS ON LEFT -> MOVE THE LEFT ARM\n");
+            }
 
             if(encValue < 0)
+            {
                 printf("USER IS ON RIGHT -> MOVE THE RIGHT ARM\n");
+            }
+
 
         default:
             break;

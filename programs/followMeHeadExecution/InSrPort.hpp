@@ -24,6 +24,25 @@ namespace teo
  * @brief Input port of speech recognition data.
  *
  */
+
+class inSrPort : public PortReader { // -- InSrPort
+     virtual bool read(ConnectionReader& connection) {
+          Bottle in, out;
+          bool ok = in.read(connection);
+          if (!ok) return false;
+          ...      // process data "in", prepare "out"
+          ConnectionWriter *returnToSender = connection.getWriter();
+          if (returnToSender!=NULL) {
+         out.write(*returnToSender);
+          }
+          return true;
+     }
+};
+DataProcessor processor;
+...
+p.setReader(processor);  // no need to call p.read() on port any more.
+
+/*
 class InSrPort : public BufferedPort<Bottle> {
     public:
         void setInCvPortPtr(InCvPort *inCvPortPtr) {
@@ -34,16 +53,20 @@ class InSrPort : public BufferedPort<Bottle> {
             this->iEncoders = iEncoders;
         }
 
-    protected:
+        bool configure();
+*/
+
+//    protected:
         /** Callback on incoming Bottle. **/
-        virtual void onRead(Bottle& b);
+//        virtual void onRead(Bottle& b);
 
         //-- Cv Port
-        InCvPort* inCvPortPtr;
+//        InCvPort* inCvPortPtr;
 
         //-- Robot device
-        yarp::dev::IEncoders *iEncoders;
-};
+//        yarp::dev::IEncoders *iEncoders;
+//};
+
 
 }  // namespace teo
 

@@ -52,6 +52,7 @@ bool FollowMeHeadExecution::configure(ResourceFinder &rf) {
     inSrPort.useCallback();
     inSrPort.open("/followMeHeadExecution/dialogueManager/command:i");
     inCvPort.open("/followMeHeadExecution/cv/state:i");
+    replyPosPort.open("/followMeHeadExecution/head/rpc:s"); // -- head
 
     return true;
 }
