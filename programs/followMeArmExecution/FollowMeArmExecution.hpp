@@ -17,6 +17,12 @@
 namespace teo
 {
 
+/**
+ * @ingroup follow-me_programs
+ *
+ * @brief Arm Execution Core.
+ *
+ */
 class FollowMeArmExecution : public yarp::os::RFModule, public yarp::os::PortReader, public yarp::os::Thread
 {
 public:
