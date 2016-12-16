@@ -9,6 +9,7 @@ namespace teo
 
 bool InDialoguePortProcessor::read(ConnectionReader& connection) {
     Bottle in, out;
+    double encValue;
     bool ok = in.read(connection);
     if (!ok) return false;
 
@@ -21,28 +22,35 @@ bool InDialoguePortProcessor::read(ConnectionReader& connection) {
             printf("stopFollowing\n");
             inCvPortPtr->setFollow(false);
             break;
-        case VOCAB_WAVE_APPROPRIATE_HAND:
-            // implementar movimiento brazo dependiendo de iEncoders
-            double encValue;
+        case VOCAB_WAVE_APPROPRIATE_HAND:           
             if ( ! iEncoders->getEncoder(0, &encValue) )  // 0 es el tilt del cuello (http://robots.uc3m.es/index.php/TEO_Diagrams)
             {
                 printf("Error: getEncoder failed\n");
                 return false;
             }
-
-            if(encValue > 0)
-            {
+            if(encValue > 0)           
                 printf("USER IS ON LEFT -> MOVE THE LEFT ARM\n");
-            }
 
-            if(encValue < 0)
-            {
+            if(encValue < 0)            
                 printf("USER IS ON RIGHT -> MOVE THE RIGHT ARM\n");
-            }
-
-
-        default:
             break;
+        case VOCAB_GET_ENCODER_POSITION:
+            if ( ! iEncoders->getEncoder(0, &encValue) )  // 0 es el tilt del cuello (http://robots.uc3m.es/index.php/TEO_Diagrams)
+            {
+                printf("Error: getEncoder failed\n");
+                return false;
+            }
+            out.addDouble(encValue);
+
+            ConnectionWriter *returnToSender = connection.getWriter();
+            if (returnToSender!=NULL)
+                out.write(*returnToSender);
+            break;
+
+        //default:
+        //    break;
+
+        return true;
     }
 }
 
