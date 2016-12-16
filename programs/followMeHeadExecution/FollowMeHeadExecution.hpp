@@ -19,9 +19,9 @@ namespace teo
 {
 
 /**
- * @ingroup followMeHeadExecution
+ * @ingroup follow-me_programs
  *
- * @brief Execution Core 1.
+ * @brief Head Execution Core.
  *
  */
 class FollowMeHeadExecution : public RFModule {
@@ -30,14 +30,13 @@ class FollowMeHeadExecution : public RFModule {
 
 
     protected:
-        InSrPort inSrPort;
+        //-- Rpc port, server to knowing encoder position (reply position port), etc...
+        RpcServer inDialoguePort;
+        InSrPort inDialoguePortProcessor;
         InCvPort inCvPort;
         yarp::dev::PolyDriver headDevice;
         yarp::dev::IPositionControl *iPositionControl;
         yarp::dev::IEncoders *iEncoders;
-
-        //-- Rpc port to knowing encoder position (reply position port)
-        yarp::os::RpcServer replyPosPort;
 
         bool interruptModule();
         double getPeriod();
