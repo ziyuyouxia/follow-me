@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 #include "InCvPort.hpp"
-#include "InSrPort.hpp"
+#include "InDialoguePortProcessor.hpp"
 
 #define VOCAB_FOLLOW_ME VOCAB4('f','o','l','l')
 #define VOCAB_STOP_FOLLOWING VOCAB4('s','f','o','l')
@@ -32,7 +32,7 @@ class FollowMeHeadExecution : public RFModule {
     protected:
         //-- Rpc port, server to knowing encoder position (reply position port), etc...
         RpcServer inDialoguePort;
-        InSrPort inDialoguePortProcessor;
+        InDialoguePortProcessor inDialoguePortProcessor; // old (InSrPort)
         InCvPort inCvPort;
         yarp::dev::PolyDriver headDevice;
         yarp::dev::IPositionControl *iPositionControl;

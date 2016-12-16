@@ -26,7 +26,7 @@ namespace teo
  */
 
 
-class InSrPort : public PortReader {
+class InDialoguePortProcessor : public PortReader {
     public:
         void setInCvPortPtr(InCvPort *inCvPortPtr) {
             this->inCvPortPtr = inCvPortPtr;

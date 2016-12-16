@@ -1,13 +1,13 @@
 // -*- mode:C++; tab-width:4; c-basic-offset:4; indent-tabs-mode:nil -*-
 
-#include "InSrPort.hpp"
+#include "InDialoguePortProcessor.hpp"
 
 namespace teo
 {
 
 /************************************************************************/
 
-bool InSrPort::read(ConnectionReader& connection) {
+bool InDialoguePortProcessor::read(ConnectionReader& connection) {
     Bottle in, out;
     bool ok = in.read(connection);
     if (!ok) return false;
