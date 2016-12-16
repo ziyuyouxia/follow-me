@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6)
 
 IF (ENABLE_followMeExecutionCore)
 
-set(KEYWORD "followMeExecutionCore")
+set(KEYWORD "followMeHeadExecution")
 
 # Find YARP.  Point the YARP_DIR environment variable at your build.
 find_package(YARP REQUIRED)
