@@ -27,6 +27,7 @@ bool InDialoguePortProcessor::read(ConnectionReader& connection) {
             {
                 printf("Error: getEncoder failed\n");
                 out.addVocab(VOCAB_FAILED);
+                return true;
             }
             if(encValue > 0)           
                 printf("USER IS ON LEFT -> MOVE THE LEFT ARM\n");
@@ -39,13 +40,15 @@ bool InDialoguePortProcessor::read(ConnectionReader& connection) {
             {
                 printf("Error: getEncoder failed\n");
                 out.addVocab(VOCAB_FAILED);
+                return true;
             }
             out.addDouble(encValue);
-
-            ConnectionWriter *returnToSender = connection.getWriter();
-            if (returnToSender!=NULL)
-                out.write(*returnToSender);
             break;
+
+        // -- Gets a way to reply to the message, if possible.
+        ConnectionWriter *returnToSender = connection.getWriter();
+        if (returnToSender!=NULL)
+            out.write(*returnToSender);
 
         return true;
     }
