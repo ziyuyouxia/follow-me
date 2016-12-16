@@ -25,25 +25,8 @@ namespace teo
  *
  */
 
-class inSrPort : public PortReader { // -- InSrPort
-     virtual bool read(ConnectionReader& connection) {
-          Bottle in, out;
-          bool ok = in.read(connection);
-          if (!ok) return false;
-          ...      // process data "in", prepare "out"
-          ConnectionWriter *returnToSender = connection.getWriter();
-          if (returnToSender!=NULL) {
-         out.write(*returnToSender);
-          }
-          return true;
-     }
-};
-DataProcessor processor;
-...
-p.setReader(processor);  // no need to call p.read() on port any more.
 
-/*
-class InSrPort : public BufferedPort<Bottle> {
+class InSrPort : public PortReader {
     public:
         void setInCvPortPtr(InCvPort *inCvPortPtr) {
             this->inCvPortPtr = inCvPortPtr;
@@ -53,19 +36,17 @@ class InSrPort : public BufferedPort<Bottle> {
             this->iEncoders = iEncoders;
         }
 
-        bool configure();
-*/
 
-//    protected:
-        /** Callback on incoming Bottle. **/
-//        virtual void onRead(Bottle& b);
+    protected:
+        /** Getting replies **/
+        virtual bool read(ConnectionReader& connection);
 
         //-- Cv Port
-//        InCvPort* inCvPortPtr;
+        InCvPort* inCvPortPtr;
 
         //-- Robot device
-//        yarp::dev::IEncoders *iEncoders;
-//};
+        yarp::dev::IEncoders *iEncoders;
+};
 
 
 }  // namespace teo
