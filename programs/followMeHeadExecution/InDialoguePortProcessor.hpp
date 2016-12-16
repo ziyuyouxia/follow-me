@@ -11,7 +11,7 @@
 
 #define VOCAB_FOLLOW_ME VOCAB4('f','o','l','l')
 #define VOCAB_WAVE_APPROPRIATE_HAND VOCAB4('w','a','p','h')
-
+#define VOCAB_GET_ENCODER_POSITION VOCAB4('g','e','p','s')
 
 using namespace yarp::os;
 
