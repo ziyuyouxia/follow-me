@@ -7,10 +7,12 @@ namespace teo
 
 /************************************************************************/
 
-void InSrPort::onRead(Bottle& b) {
-    Bottle out;
+bool InSrPort::read(ConnectionReader& connection) {
+    Bottle in, out;
+    bool ok = in.read(connection);
+    if (!ok) return false;
 
-    switch ( b.get(0).asVocab() ) {
+    switch ( in.get(0).asVocab() ) { //-- b.get(0).asVocab()
         case VOCAB_FOLLOW_ME:
             printf("follow\n");
             inCvPortPtr->setFollow(true);
@@ -25,7 +27,7 @@ void InSrPort::onRead(Bottle& b) {
             if ( ! iEncoders->getEncoder(0, &encValue) )  // 0 es el tilt del cuello (http://robots.uc3m.es/index.php/TEO_Diagrams)
             {
                 printf("Error: getEncoder failed\n");
-                return;
+                return false;
             }
 
             if(encValue > 0)
