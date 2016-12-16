@@ -26,7 +26,7 @@ bool InDialoguePortProcessor::read(ConnectionReader& connection) {
             if ( ! iEncoders->getEncoder(0, &encValue) )  // 0 es el tilt del cuello (http://robots.uc3m.es/index.php/TEO_Diagrams)
             {
                 printf("Error: getEncoder failed\n");
-                return false;
+                out.addVocab(VOCAB_FAILED);
             }
             if(encValue > 0)           
                 printf("USER IS ON LEFT -> MOVE THE LEFT ARM\n");
@@ -38,7 +38,7 @@ bool InDialoguePortProcessor::read(ConnectionReader& connection) {
             if ( ! iEncoders->getEncoder(0, &encValue) )  // 0 es el tilt del cuello (http://robots.uc3m.es/index.php/TEO_Diagrams)
             {
                 printf("Error: getEncoder failed\n");
-                return false;
+                out.addVocab(VOCAB_FAILED);
             }
             out.addDouble(encValue);
 
@@ -46,9 +46,6 @@ bool InDialoguePortProcessor::read(ConnectionReader& connection) {
             if (returnToSender!=NULL)
                 out.write(*returnToSender);
             break;
-
-        //default:
-        //    break;
 
         return true;
     }
