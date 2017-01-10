@@ -131,12 +131,19 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
         //-- And if not, we wait, increment a counter that
         yarp::os::Time::delay(0.1);
         counter++;
-        if (counter == 10000)  //-- IMPORTANT: THIS LINE PLUS THE DELAY MARK THE PERIOD
+        printf("counter: %d\n", counter);
+        if (counter == 100)  //-- IMPORTANT: THIS LINE PLUS THE DELAY MARK THE PERIOD
         {
             counter = 0;
-            yarp::os::Bottle cmd;
+            yarp::os::Bottle cmd, encValue;
             cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
-            outCmdArmPort->write(cmd);
+            //outCmdArmPort->write(cmd); //(mover brazo)
+            outCmdHeadPort->write(cmd, encValue);
+            printf("EncValue -> %f\n", encValue.get(0).asDouble());
+            if(encValue.get(0).asDouble() > 10) ttsSay("You are, on the, right ");
+            else if(encValue.get(0).asDouble() < -10) ttsSay("You are, on the, left ");
+            else ttsSay("You are, on the, center ");
+
         }
         //-- ...to finally continue the read loop.
     }
