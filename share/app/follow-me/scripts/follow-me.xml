@@ -2,6 +2,7 @@
 <name>follow-me App</name>
     <module>
         <name>followMeDialogueManager</name>
+        <parameters>--language spanish</parameters>
         <node>localhost</node>
     </module>
 
