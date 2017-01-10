@@ -136,13 +136,14 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
         {
             counter = 0;
             yarp::os::Bottle cmd, encValue;
-            cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
+            //cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
             //outCmdArmPort->write(cmd); //(mover brazo)
+            cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
             outCmdHeadPort->write(cmd, encValue);
             printf("EncValue -> %f\n", encValue.get(0).asDouble());
-            if(encValue.get(0).asDouble() > 10) ttsSay("You are, on the, right ");
-            else if(encValue.get(0).asDouble() < -10) ttsSay("You are, on the, left ");
-            else ttsSay("You are, on the, center ");
+            if(encValue.get(0).asDouble() > 10) ttsSay( onTheRight );
+            else if(encValue.get(0).asDouble() < -10) ttsSay( onTheLeft );
+            else ttsSay( onTheCenter );
 
         }
         //-- ...to finally continue the read loop.
@@ -225,6 +226,11 @@ bool StateMachine::setSpeakLanguage(std::string language) {
         notUnderstand = std::string("Sorry, I don't understand");
         okFollow = std::string("Okay, I will follow you");
         stopFollow = std::string("Okay, I will stop following you. See you later");
+        onTheLeft = std::string("You are, on the, left");
+        onTheRight = std::string("You are, on the, right");
+        onTheCenter = std::string("You are, on the, center");
+
+
 
         return true;
     }
@@ -241,6 +247,9 @@ bool StateMachine::setSpeakLanguage(std::string language) {
         notUnderstand = std::string("Lo siento. No te he entendido");
         okFollow = std::string("Vale. Voy, a comenzar a seguirte");
         stopFollow = std::string("De acuerdo. Voy, a dejar de seguirte. Hasta pronto.");
+        onTheLeft = std::string("Ahora, estás, a la izquierda");
+        onTheRight = std::string("Ahora, estás, a la derecha");
+        onTheCenter = std::string("Ahora, estás, en el centro");
     }
     else
     {
