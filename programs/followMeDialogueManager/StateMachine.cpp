@@ -16,6 +16,7 @@ bool StateMachine::threadInit() {
 /************************************************************************/
 
 void StateMachine::run() {
+    bool following = false;
     ttsSay( presentation1 );
     ttsSay( presentation2 );
     ttsSay( presentation3 );
@@ -61,26 +62,34 @@ void StateMachine::run() {
          }
         else if(_machineState==2)
         {
-            yarp::os::ConstString inStr = asrListenWithPeriodicWave();
+            yarp::os::ConstString inStr;
+            if(following) inStr = asrListenWithPeriodicWave();
+            else inStr = asrListen();
+
             // Blocking
             _inStrState1 = inStr;
             if( _inStrState1.find(followMe) != yarp::os::ConstString::npos ) _machineState=3;
             else if ( _inStrState1.find(stopFollowing) != yarp::os::ConstString::npos ) _machineState=4;
-            else _machineState=2;            
+            else _machineState=2;
+
         } else if (_machineState==3) {
-            ttsSay( okFollow );
+            following = true;
+            ttsSay( okFollow );            
             //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_FOLLOW_ME);
             outCmdHeadPort->write(cmd);
             _machineState=0;
+
         } else if (_machineState==4) {
+            following = false;
             ttsSay( stopFollow );
             //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STOP_FOLLOWING);
             outCmdHeadPort->write(cmd);
             _machineState=2;
+
         } else {
             ttsSay( yarp::os::ConstString("ANOMALY") );
             _machineState=0;
@@ -141,8 +150,8 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
             cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
             outCmdHeadPort->write(cmd, encValue);
             printf("EncValue -> %f\n", encValue.get(0).asDouble());
-            if(encValue.get(0).asDouble() > 10) ttsSay( onTheRight );
-            else if(encValue.get(0).asDouble() < -10) ttsSay( onTheLeft );
+            if(encValue.get(0).asDouble() > 15) ttsSay( onTheRight );
+            else if(encValue.get(0).asDouble() < -15) ttsSay( onTheLeft );
             else ttsSay( onTheCenter );
 
         }
@@ -230,9 +239,8 @@ bool StateMachine::setSpeakLanguage(std::string language) {
         onTheRight = std::string("You are, on the, right");
         onTheCenter = std::string("You are, on the, center");
 
-
-
         return true;
+
     }
     else if("spanish" == language)
     {
