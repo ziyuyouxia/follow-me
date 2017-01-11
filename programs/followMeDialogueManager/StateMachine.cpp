@@ -150,8 +150,8 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
             cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
             outCmdHeadPort->write(cmd, encValue);
             printf("EncValue -> %f\n", encValue.get(0).asDouble());
-            if(encValue.get(0).asDouble() > 15) ttsSay( onTheRight );
-            else if(encValue.get(0).asDouble() < -15) ttsSay( onTheLeft );
+            if(encValue.get(0).asDouble() > 10) ttsSay( onTheLeft );
+            else if(encValue.get(0).asDouble() < -10) ttsSay( onTheRight );
             else ttsSay( onTheCenter );
 
         }
@@ -205,9 +205,9 @@ bool StateMachine::setLanguage(std::string language)
     else if("spanish" == language)
     {
         //-- frases de reconociomiento
-        followMe = std::string ("follow me");
-        myNameIs = std::string ("my name is");
-        stopFollowing = std::string ("stop following");
+        followMe = std::string ("sigueme");
+        myNameIs = std::string ("mi nombre es");
+        stopFollowing = std::string ("para");
 
         return true;
     }
@@ -235,8 +235,8 @@ bool StateMachine::setSpeakLanguage(std::string language) {
         notUnderstand = std::string("Sorry, I don't understand");
         okFollow = std::string("Okay, I will follow you");
         stopFollow = std::string("Okay, I will stop following you. See you later");
-        onTheLeft = std::string("You are, on the, left");
-        onTheRight = std::string("You are, on the, right");
+        onTheRight = std::string("You are, on my, right");
+        onTheLeft = std::string("You are, on my, left");
         onTheCenter = std::string("You are, on the, center");
 
         return true;
@@ -255,8 +255,8 @@ bool StateMachine::setSpeakLanguage(std::string language) {
         notUnderstand = std::string("Lo siento. No te he entendido");
         okFollow = std::string("Vale. Voy, a comenzar a seguirte");
         stopFollow = std::string("De acuerdo. Voy, a dejar de seguirte. Hasta pronto.");
-        onTheLeft = std::string("Ahora, estás, a la izquierda");
-        onTheRight = std::string("Ahora, estás, a la derecha");
+        onTheRight = std::string("Ahora, estás, a mi derecha");
+        onTheLeft = std::string("Ahora, estás, a mi izquierda");
         onTheCenter = std::string("Ahora, estás, en el centro");
     }
     else
