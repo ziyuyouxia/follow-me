@@ -127,7 +127,8 @@ yarp::os::ConstString StateMachine::asrListen()
 /************************************************************************/
 
 yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
-    int counter = 0;
+char position = '0'; //-- char position (l = left, c = center, r = right)
+
     while( true ) // read loop
     {
         yarp::os::Bottle* bIn = inSrPort->read(false);  //-- IMPORTANT: should not wait
@@ -137,36 +138,34 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
             printf("[StateMachine] Listened: %s\n", bIn->toString().c_str());
             return bIn->get(0).asString();
         }
-        //-- And if not, we wait, increment a counter that
-        yarp::os::Time::delay(0.1);
-        counter++;
-        printf("counter: %d\n", counter);
-        if (counter == 100)  //-- IMPORTANT: THIS LINE PLUS THE DELAY MARK THE PERIOD
-        {
-            counter = 0;
-            yarp::os::Bottle cmd, encValue;
-            //cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
-            //outCmdArmPort->write(cmd); //(mover brazo)
-            cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
-            outCmdHeadPort->write(cmd, encValue);
-            printf("EncValue -> %f\n", encValue.get(0).asDouble());
-            if(encValue.get(0).asDouble() > 10) {
+
+        // Está leyendo permanentemente la posición del encoder
+        yarp::os::Bottle cmd, encValue;
+        cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
+        outCmdHeadPort->write(cmd, encValue);
+        printf("EncValue -> %f\n", encValue.get(0).asDouble());
+
+            if( (encValue.get(0).asDouble() > 10) && (position!='l') ) {
                 yarp::os::Bottle cmd;
                 cmd.addVocab(VOCAB_STATE_SIGNALIZE_LEFT);
                 outCmdArmPort->write(cmd);
                 yarp::os::Time::delay(3);
                 ttsSay( onTheLeft );
+                position = 'l';
             }
-            else if(encValue.get(0).asDouble() < -10) {
+            else if( (encValue.get(0).asDouble() < -10) && (position!='r') ) {
                 yarp::os::Bottle cmd;
                 cmd.addVocab(VOCAB_STATE_SIGNALIZE_RIGHT);
                 outCmdArmPort->write(cmd);
                 yarp::os::Time::delay(3);
                 ttsSay( onTheRight );
+                position = 'r';
             }
-            else ttsSay( onTheCenter );
+            else if( (encValue.get(0).asDouble() > -3) && (encValue.get(0).asDouble() < 3) && (position!='c') ){
+                ttsSay( onTheCenter );
+                position = 'c';
+            }
 
-        }
         //-- ...to finally continue the read loop.
     }
 }
