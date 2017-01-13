@@ -150,8 +150,20 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
             cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
             outCmdHeadPort->write(cmd, encValue);
             printf("EncValue -> %f\n", encValue.get(0).asDouble());
-            if(encValue.get(0).asDouble() > 10) ttsSay( onTheLeft );
-            else if(encValue.get(0).asDouble() < -10) ttsSay( onTheRight );
+            if(encValue.get(0).asDouble() > 10) {
+                yarp::os::Bottle cmd;
+                cmd.addVocab(VOCAB_STATE_SIGNALIZE_LEFT);
+                outCmdArmPort->write(cmd);
+                yarp::os::Time::delay(3);
+                ttsSay( onTheLeft );
+            }
+            else if(encValue.get(0).asDouble() < -10) {
+                yarp::os::Bottle cmd;
+                cmd.addVocab(VOCAB_STATE_SIGNALIZE_RIGHT);
+                outCmdArmPort->write(cmd);
+                yarp::os::Time::delay(3);
+                ttsSay( onTheRight );
+            }
             else ttsSay( onTheCenter );
 
         }
