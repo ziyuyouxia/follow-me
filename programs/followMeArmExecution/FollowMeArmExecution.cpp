@@ -128,6 +128,12 @@ bool FollowMeArmExecution::read(yarp::os::ConnectionReader& connection)
      else if (VOCAB_STOP_FOLLOWING ==b.get(0).asVocab())
          state = VOCAB_STOP_FOLLOWING;
 
+     else if (VOCAB_STATE_SIGNALIZE_RIGHT == b.get(0).asVocab())
+         state = VOCAB_STATE_SIGNALIZE_RIGHT;
+
+     else if (VOCAB_STATE_SIGNALIZE_LEFT == b.get(0).asVocab())
+         state = VOCAB_STATE_SIGNALIZE_LEFT;
+
      return true;
 }
 
@@ -188,6 +194,60 @@ void FollowMeArmExecution::run()
                 rightArmQ[0] = 45;
                 rightArmQ[2] = 20;
                 rightArmQ[3] = 80;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            state = VOCAB_STATE_ARM_SWINGING;
+            break;
+
+        case VOCAB_STATE_SIGNALIZE_RIGHT:
+            printf("Signalize right");
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 50;
+                rightArmQ[1] = -20;
+                rightArmQ[2] = -10;
+                rightArmQ[3] = 70;
+                rightArmQ[4] = -20;
+                rightArmQ[5] = 40;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[0] = 50;
+                rightArmQ[1] = -20;
+                rightArmQ[2] = -10;
+                rightArmQ[3] = 70;
+                rightArmQ[4] = -20;
+                rightArmQ[5] = 0;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            state = VOCAB_STATE_ARM_SWINGING;
+            break;
+
+        case VOCAB_STATE_SIGNALIZE_LEFT:
+            printf("Signalize left");
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                leftArmQ[0] = -50;
+                leftArmQ[1] = 20;
+                leftArmQ[2] = 10;
+                leftArmQ[3] = -70;
+                leftArmQ[4] = 20;
+                leftArmQ[5] = -40;
+                armJointsMoveAndWait(leftArmQ,rightArmQ);
+            }
+            {
+                std::vector<double> leftArmQ(7,0.0);
+                std::vector<double> rightArmQ(7,0.0);
+                leftArmQ[0] = -50;
+                leftArmQ[1] = 20;
+                leftArmQ[2] = 10;
+                leftArmQ[3] = -70;
+                leftArmQ[4] = 20;
+                leftArmQ[5] = 0;
                 armJointsMoveAndWait(leftArmQ,rightArmQ);
             }
             state = VOCAB_STATE_ARM_SWINGING;
