@@ -101,14 +101,20 @@ bool FollowMeArmExecution::armJointsMoveAndWait(std::vector<double>& leftArmQ, s
     rightArmIPositionControl->positionMove( rightArmQ.data() );
     leftArmIPositionControl->positionMove( leftArmQ.data() );
     //printf("Waiting for right arm.");
-    bool done = false;
-    while((!done)&&(!Thread::isStopping()))
+    bool doneRight = false;
+    bool doneLeft = false;
+    while((!doneRight)&&(!Thread::isStopping()))
     {
-        rightArmIPositionControl->checkMotionDone(&done);
-        //printf(".");
-        //fflush(stdout);
+        rightArmIPositionControl->checkMotionDone(&doneRight);        
         yarp::os::Time::delay(0.1);
     }
+
+    while((!doneLeft)&&(!Thread::isStopping()))
+    {
+         leftArmIPositionControl->checkMotionDone(&doneLeft);
+          yarp::os::Time::delay(0.1);
+    }
+
     //printf("\n");
     return true;
 }
@@ -200,7 +206,7 @@ void FollowMeArmExecution::run()
             break;
 
         case VOCAB_STATE_SIGNALIZE_RIGHT:
-            printf("Signalize right");
+            printf("Signalize right\n");
             {
                 std::vector<double> leftArmQ(7,0.0);
                 std::vector<double> rightArmQ(7,0.0);
@@ -227,7 +233,7 @@ void FollowMeArmExecution::run()
             break;
 
         case VOCAB_STATE_SIGNALIZE_LEFT:
-            printf("Signalize left");
+            printf("Signalize left\n");
             {
                 std::vector<double> leftArmQ(7,0.0);
                 std::vector<double> rightArmQ(7,0.0);
