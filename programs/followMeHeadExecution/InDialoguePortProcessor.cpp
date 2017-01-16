@@ -26,21 +26,6 @@ bool InDialoguePortProcessor::read(ConnectionReader& connection) {
             inCvPortPtr->setFollow(false);
             break;
 
-        case VOCAB_WAVE_APPROPRIATE_HAND:           
-            if ( ! iEncoders->getEncoder(0, &encValue) )  // 0 es el tilt del cuello (http://robots.uc3m.es/index.php/TEO_Diagrams)
-            {
-                printf("Error: getEncoder failed\n");
-                out.addVocab(VOCAB_FAILED);
-                if (returnToSender!=NULL)
-                    out.write(*returnToSender);
-                return true;
-            }
-            if(encValue > 0)           
-                printf("USER IS ON LEFT -> MOVE THE LEFT ARM\n");
-
-            if(encValue < 0)            
-                printf("USER IS ON RIGHT -> MOVE THE RIGHT ARM\n");
-            break;
         case VOCAB_GET_ENCODER_POSITION:
             if ( ! iEncoders->getEncoder(0, &encValue) )  // 0 es el tilt del cuello (http://robots.uc3m.es/index.php/TEO_Diagrams)
             {
