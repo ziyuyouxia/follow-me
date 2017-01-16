@@ -16,6 +16,7 @@ bool StateMachine::threadInit() {
 /************************************************************************/
 
 void StateMachine::run() {
+    bool following = false;
     ttsSay( presentation1 );
     ttsSay( presentation2 );
     ttsSay( presentation3 );
@@ -61,26 +62,34 @@ void StateMachine::run() {
          }
         else if(_machineState==2)
         {
-            yarp::os::ConstString inStr = asrListenWithPeriodicWave();
+            yarp::os::ConstString inStr;
+            if(following) inStr = asrListenWithPeriodicWave();
+            else inStr = asrListen();
+
             // Blocking
             _inStrState1 = inStr;
             if( _inStrState1.find(followMe) != yarp::os::ConstString::npos ) _machineState=3;
             else if ( _inStrState1.find(stopFollowing) != yarp::os::ConstString::npos ) _machineState=4;
-            else _machineState=2;            
+            else _machineState=2;
+
         } else if (_machineState==3) {
-            ttsSay( okFollow );
+            following = true;
+            ttsSay( okFollow );            
             //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_FOLLOW_ME);
             outCmdHeadPort->write(cmd);
             _machineState=0;
+
         } else if (_machineState==4) {
+            following = false;
             ttsSay( stopFollow );
             //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STOP_FOLLOWING);
             outCmdHeadPort->write(cmd);
             _machineState=2;
+
         } else {
             ttsSay( yarp::os::ConstString("ANOMALY") );
             _machineState=0;
@@ -118,7 +127,8 @@ yarp::os::ConstString StateMachine::asrListen()
 /************************************************************************/
 
 yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
-    int counter = 0;
+char position = '0'; //-- char position (l = left, c = center, r = right)
+
     while( true ) // read loop
     {
         yarp::os::Bottle* bIn = inSrPort->read(false);  //-- IMPORTANT: should not wait
@@ -128,16 +138,34 @@ yarp::os::ConstString StateMachine::asrListenWithPeriodicWave() {
             printf("[StateMachine] Listened: %s\n", bIn->toString().c_str());
             return bIn->get(0).asString();
         }
-        //-- And if not, we wait, increment a counter that
-        yarp::os::Time::delay(0.1);
-        counter++;
-        if (counter == 10000)  //-- IMPORTANT: THIS LINE PLUS THE DELAY MARK THE PERIOD
-        {
-            counter = 0;
-            yarp::os::Bottle cmd;
-            cmd.addVocab(VOCAB_WAVE_APPROPRIATE_HAND);
-            outCmdArmPort->write(cmd);
-        }
+
+        // It is reading the encoder position all the time
+        yarp::os::Bottle cmd, encValue;
+        cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
+        outCmdHeadPort->write(cmd, encValue);
+        printf("EncValue -> %f\n", encValue.get(0).asDouble());
+
+            if( (encValue.get(0).asDouble() > 10) && (position!='l') ) {
+                yarp::os::Bottle cmd;
+                cmd.addVocab(VOCAB_STATE_SIGNALIZE_LEFT);
+                outCmdArmPort->write(cmd);
+                yarp::os::Time::delay(3);
+                ttsSay( onTheLeft );
+                position = 'l';
+            }
+            else if( (encValue.get(0).asDouble() < -10) && (position!='r') ) {
+                yarp::os::Bottle cmd;
+                cmd.addVocab(VOCAB_STATE_SIGNALIZE_RIGHT);
+                outCmdArmPort->write(cmd);
+                yarp::os::Time::delay(3);
+                ttsSay( onTheRight );
+                position = 'r';
+            }
+            else if( (encValue.get(0).asDouble() > -3) && (encValue.get(0).asDouble() < 3) && (position!='c') ){
+                ttsSay( onTheCenter );
+                position = 'c';
+            }
+
         //-- ...to finally continue the read loop.
     }
 }
@@ -188,9 +216,9 @@ bool StateMachine::setLanguage(std::string language)
     else if("spanish" == language)
     {
         //-- frases de reconociomiento
-        followMe = std::string ("follow me");
-        myNameIs = std::string ("my name is");
-        stopFollowing = std::string ("stop following");
+        followMe = std::string ("sigueme");
+        myNameIs = std::string ("mi nombre es");
+        stopFollowing = std::string ("para");
 
         return true;
     }
@@ -218,8 +246,12 @@ bool StateMachine::setSpeakLanguage(std::string language) {
         notUnderstand = std::string("Sorry, I don't understand");
         okFollow = std::string("Okay, I will follow you");
         stopFollow = std::string("Okay, I will stop following you. See you later");
+        onTheRight = std::string("You are, on my, right");
+        onTheLeft = std::string("You are, on my, left");
+        onTheCenter = std::string("You are, on the, center");
 
         return true;
+
     }
     else if("spanish" == language)
     {
@@ -234,6 +266,9 @@ bool StateMachine::setSpeakLanguage(std::string language) {
         notUnderstand = std::string("Lo siento. No te he entendido");
         okFollow = std::string("Vale. Voy, a comenzar a seguirte");
         stopFollow = std::string("De acuerdo. Voy, a dejar de seguirte. Hasta pronto.");
+        onTheRight = std::string("Ahora, estás, a mi derecha");
+        onTheLeft = std::string("Ahora, estás, a mi izquierda");
+        onTheCenter = std::string("Ahora, estás, en el centro");
     }
     else
     {

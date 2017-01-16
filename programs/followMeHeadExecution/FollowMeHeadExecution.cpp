@@ -44,13 +44,13 @@ bool FollowMeHeadExecution::configure(ResourceFinder &rf) {
         return false;
     }
     inCvPort.setIPositionControl(iPositionControl);
-    inSrPort.setIEncoders(iEncoders);
+    inDialoguePortProcessor.setIEncoders(iEncoders);
 
     //-----------------OPEN LOCAL PORTS------------//
-    inSrPort.setInCvPortPtr(&inCvPort);
+    inDialoguePortProcessor.setInCvPortPtr(&inCvPort);
     inCvPort.useCallback();
-    inSrPort.useCallback();
-    inSrPort.open("/followMeHeadExecution/dialogueManager/command:i");
+    inDialoguePort.setReader(inDialoguePortProcessor);
+    inDialoguePort.open("/followMeHeadExecution/dialogueManager/rpc:s");
     inCvPort.open("/followMeHeadExecution/cv/state:i");
 
     return true;
@@ -72,11 +72,8 @@ bool FollowMeHeadExecution::updateModule() {
 bool FollowMeHeadExecution::interruptModule() {
     printf("FollowMeHeadExecution closing...\n");
     inCvPort.disableCallback();
-    inSrPort.disableCallback();
     inCvPort.interrupt();
-    inSrPort.interrupt();
     inCvPort.close();
-    inSrPort.close();
     return true;
 }
 

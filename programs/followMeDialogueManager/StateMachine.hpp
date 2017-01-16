@@ -16,7 +16,9 @@
 #define VOCAB_STOP_FOLLOWING VOCAB4('s','f','o','l')
 #define VOCAB_STATE_SALUTE VOCAB4('s','a','l','u')
 #define VOCAB_WAVE_APPROPRIATE_HAND VOCAB4('w','a','p','h')
-
+#define VOCAB_GET_ENCODER_POSITION VOCAB4('g','e','p','s')
+#define VOCAB_STATE_SIGNALIZE_RIGHT VOCAB4('s','i','g','r')
+#define VOCAB_STATE_SIGNALIZE_LEFT VOCAB4('s','i','g','l')
 
 namespace teo
 {
@@ -57,6 +59,9 @@ protected:
     std::string notUnderstand;
     std::string okFollow;
     std::string stopFollow;
+    std::string onTheLeft;
+    std::string onTheRight;
+    std::string onTheCenter;
 
 
     void ttsSay(const yarp::os::ConstString& sayConstString);

@@ -2,16 +2,28 @@
 <name>follow-me App</name>
     <module>
         <name>followMeDialogueManager</name>
+        <parameters>--language spanish</parameters>
         <node>localhost</node>
     </module>
 
     <module>
-        <name>followMeExecutionCore</name>
+        <name>followMeHeadExecution</name>
         <node>localhost</node>
     </module>
+
+    <module>
+        <name>followMeArmExecution</name>
+        <node>localhost</node>
+    </module>
+
     <connection>
-        <from>/followMeDialogueManager/command:o</from>
-        <to>/followMeExecutionCore/dialogueManager/command:i</to>
+        <from>/followMeDialogueManager/head/rpc:c</from>
+        <to>/followMeHeadExecution/dialogueManager/rpc:s</to>
+    </connection>
+
+    <connection>
+        <from>/followMeDialogueManager/arms/rpc:c</from>
+        <to>/followMeArmExecution/dialogueManager/rpc:s</to>
     </connection>
 
     <module>
@@ -22,7 +34,7 @@
 
     <connection>
         <from>/haarDetection/state:o</from>
-        <to>/followMeExecutionCore/cv/state:i</to>
+        <to>/followMeHeadExecution/cv/state:i</to>
     </connection>
 
     <module>
@@ -30,6 +42,7 @@
         <parameters>--name /yarpview/haarDetection/img:i</parameters>
         <node>localhost</node>
     </module>
+
     <connection>
         <from>/haarDetection/img:o</from>
         <to>/yarpview/haarDetection/img:i</to>
@@ -39,6 +52,7 @@
         <from>/followMeDialogueManager/speechRecognition/rpc:c</from>
         <to>/speechRecognition/rpc:s</to>
     </connection>
+
     <connection>
         <from>/speechRecognition:o</from>
         <to>/followMeDialogueManager/speechRecognition/speech:i</to>
@@ -49,14 +63,6 @@
         <to>/tts/rpc:s</to>
     </connection>
 
-    <module>
-        <name>followMeArmSwing</name>
-        <node>localhost</node>
-    </module>
-    <connection>
-        <from>/followMeDialogueManager/command:o</from>
-        <to>/followMeArmSwing/dialogueManager/command:i</to>
-    </connection>
 
 </application>
 

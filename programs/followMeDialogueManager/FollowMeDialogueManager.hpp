@@ -14,9 +14,9 @@ namespace teo
 {
 
 /**
- * @ingroup followMeDialogueManager
+ * @ingroup follow-me_programs
  *
- * @brief Dialogue Manager 1.
+ * @brief Dialogue Manager.
  */
 class FollowMeDialogueManager : public yarp::os::RFModule {
   private:

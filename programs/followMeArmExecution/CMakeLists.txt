@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 2.6)
 
 IF (ENABLE_followMeArmSwing)
 
-set(KEYWORD "followMeArmSwing")
+set(KEYWORD "followMeArmExecution")
 
 # Find YARP.
 find_package(YARP REQUIRED)

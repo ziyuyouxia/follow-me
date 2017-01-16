@@ -11,7 +11,8 @@
 
 #define VOCAB_FOLLOW_ME VOCAB4('f','o','l','l')
 #define VOCAB_WAVE_APPROPRIATE_HAND VOCAB4('w','a','p','h')
-
+#define VOCAB_GET_ENCODER_POSITION VOCAB4('g','e','p','s')
+#define VOCAB_FAILED VOCAB4('f','a','i','l')
 
 using namespace yarp::os;
 
@@ -24,7 +25,9 @@ namespace teo
  * @brief Input port of speech recognition data.
  *
  */
-class InSrPort : public BufferedPort<Bottle> {
+
+
+class InDialoguePortProcessor : public PortReader {
     public:
         void setInCvPortPtr(InCvPort *inCvPortPtr) {
             this->inCvPortPtr = inCvPortPtr;
@@ -34,9 +37,10 @@ class InSrPort : public BufferedPort<Bottle> {
             this->iEncoders = iEncoders;
         }
 
+
     protected:
-        /** Callback on incoming Bottle. **/
-        virtual void onRead(Bottle& b);
+        /** Getting replies **/
+        virtual bool read(ConnectionReader& connection);
 
         //-- Cv Port
         InCvPort* inCvPortPtr;
@@ -44,6 +48,7 @@ class InSrPort : public BufferedPort<Bottle> {
         //-- Robot device
         yarp::dev::IEncoders *iEncoders;
 };
+
 
 }  // namespace teo
 

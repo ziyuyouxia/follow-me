@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 #include "InCvPort.hpp"
-#include "InSrPort.hpp"
+#include "InDialoguePortProcessor.hpp"
 
 #define VOCAB_FOLLOW_ME VOCAB4('f','o','l','l')
 #define VOCAB_STOP_FOLLOWING VOCAB4('s','f','o','l')
@@ -19,17 +19,20 @@ namespace teo
 {
 
 /**
- * @ingroup followMeHeadExecution
+ * @ingroup follow-me_programs
  *
- * @brief Execution Core 1.
+ * @brief Head Execution Core.
  *
  */
 class FollowMeHeadExecution : public RFModule {
     public:
         bool configure(ResourceFinder &rf);
 
+
     protected:
-        InSrPort inSrPort;
+        //-- Rpc port, server to knowing encoder position (reply position port), etc...
+        RpcServer inDialoguePort;
+        InDialoguePortProcessor inDialoguePortProcessor; // old (InSrPort)
         InCvPort inCvPort;
         yarp::dev::PolyDriver headDevice;
         yarp::dev::IPositionControl *iPositionControl;
@@ -38,6 +41,8 @@ class FollowMeHeadExecution : public RFModule {
         bool interruptModule();
         double getPeriod();
         bool updateModule();
+
+
 
 };
 

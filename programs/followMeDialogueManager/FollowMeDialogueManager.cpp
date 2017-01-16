@@ -31,8 +31,9 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     outCmdHeadPort.open("/followMeDialogueManager/head/rpc:c");
     outCmdArmPort.open("/followMeDialogueManager/arms/rpc:c");
     outTtsPort.open("/followMeDialogueManager/tts/rpc:c");
-    inSrPort.open("/followMeDialogueManager/speechRecognition/speech:i"); // -- words (input)
     outSrecPort.open("/followMeDialogueManager/speechRecognition/rpc:c"); // -- setDictionary (client)
+    inSrPort.open("/followMeDialogueManager/speechRecognition/speech:i"); // -- words (input)
+
     stateMachine.setOutCmdHeadPort(&outCmdHeadPort);
     stateMachine.setOutCmdArmPort(&outCmdArmPort);
     stateMachine.setOutTtsPort(&outTtsPort);
@@ -79,7 +80,7 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     else if ( language == "spanish" )
     {
         bOut.addString("mb-es1");
-        bRec.addString("english"); // -- cambiar a "language" cuando tengamos reconocimiento en español
+        bRec.addString(language); // -- cambiar a "language" cuando tengamos reconocimiento en español
     }
     else
     {

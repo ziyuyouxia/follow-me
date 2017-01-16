@@ -13,10 +13,18 @@
 #define VOCAB_STATE_SALUTE VOCAB4('s','a','l','u')
 #define VOCAB_STATE_ARM_SWINGING VOCAB4('s','w','i','n')
 #define VOCAB_STOP_FOLLOWING VOCAB4('s','f','o','l')
+#define VOCAB_STATE_SIGNALIZE_RIGHT VOCAB4('s','i','g','r')
+#define VOCAB_STATE_SIGNALIZE_LEFT VOCAB4('s','i','g','l')
 
 namespace teo
 {
 
+/**
+ * @ingroup follow-me_programs
+ *
+ * @brief Arm Execution Core.
+ *
+ */
 class FollowMeArmExecution : public yarp::os::RFModule, public yarp::os::PortReader, public yarp::os::Thread
 {
 public:
