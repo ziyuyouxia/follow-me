@@ -45,6 +45,7 @@ protected:
     std::string _language;
 
     // input variables
+    std::string hiTeo;
     std::string followMe;
     std::string myNameIs;
     std::string stopFollowing;
