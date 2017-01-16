@@ -139,7 +139,7 @@ char position = '0'; //-- char position (l = left, c = center, r = right)
             return bIn->get(0).asString();
         }
 
-        // Está leyendo permanentemente la posición del encoder
+        // It is reading the encoder position all the time
         yarp::os::Bottle cmd, encValue;
         cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
         outCmdHeadPort->write(cmd, encValue);
