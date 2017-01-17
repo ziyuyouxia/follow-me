@@ -9,7 +9,7 @@
  *
  * @section followMeHeadExecution_legal Legal
  *
- * Copyright: 2016 (C) Universidad Carlos III de Madrid
+ * Copyright: 2017 (C) Universidad Carlos III de Madrid
  *
  * Author: <a href="http://roboticslab.uc3m.es/roboticslab/persona.php?id_pers=72">Juan G. Victores</a> and <a href="http://roboticslab.uc3m.es/roboticslab/people/r-de-santos">Raul de Santos Rico</a>
  *

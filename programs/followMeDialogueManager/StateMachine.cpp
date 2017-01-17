@@ -8,7 +8,7 @@ namespace teo
 /************************************************************************/
 
 bool StateMachine::threadInit() {
-    _machineState = 2;
+    _machineState = 3;
     sentence = 'a';
     return true;
 }
@@ -16,25 +16,33 @@ bool StateMachine::threadInit() {
 /************************************************************************/
 
 void StateMachine::run() {
-    bool following = false;
     ttsSay( presentation1 );
-    ttsSay( presentation2 );
-    ttsSay( presentation3 );
+    bool following = false;
+
     while(!isStopping()) {
-         if(_machineState==0)
+        if(_machineState == 0){
+            ttsSay( presentation2 );
+            ttsSay( presentation3 );
+            _machineState = 3;
+        }
+
+         if(_machineState == 1)
          {
             ttsSay( askName );  //-- , please tell me
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STATE_SALUTE);
             outCmdArmPort->write(cmd);
-            _machineState=1;
+            _machineState=2;
          }
-         else if(_machineState==1)
+         else if(_machineState == 2)
          {
             yarp::os::ConstString inStr = asrListen();            
             // Blocking
             _inStrState1 = inStr;
-            if((_inStrState1.find(myNameIs) != yarp::os::ConstString::npos))
+            if((_inStrState1.find(stopFollowing) != yarp::os::ConstString::npos))
+                _machineState = 5;
+
+            else if((_inStrState1.find(myNameIs) != yarp::os::ConstString::npos))
             {
                 switch (sentence) {
                 case 'a':
@@ -52,15 +60,15 @@ void StateMachine::run() {
                 default:
                     break;
                 }
-            _machineState=2;
+            _machineState=3;
             }
             else
             {
                 ttsSay( notUnderstand );
-                _machineState=0;
+                _machineState=1;
             }
          }
-        else if(_machineState==2)
+        else if(_machineState==3)
         {
             yarp::os::ConstString inStr;
             if(following) inStr = asrListenWithPeriodicWave();
@@ -68,31 +76,33 @@ void StateMachine::run() {
 
             // Blocking
             _inStrState1 = inStr;
-            if( _inStrState1.find(followMe) != yarp::os::ConstString::npos ) _machineState=3;
-            else if ( _inStrState1.find(stopFollowing) != yarp::os::ConstString::npos ) _machineState=4;
-            else _machineState=2;
+            if( _inStrState1.find(hiTeo) != yarp::os::ConstString::npos ) _machineState=0;
+            else if( _inStrState1.find(followMe) != yarp::os::ConstString::npos ) _machineState=4;
+            else if ( _inStrState1.find(stopFollowing) != yarp::os::ConstString::npos ) _machineState=5;
+            else _machineState=3;
 
-        } else if (_machineState==3) {
+        } else if (_machineState==4) {
             following = true;
             ttsSay( okFollow );            
             //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_FOLLOW_ME);
             outCmdHeadPort->write(cmd);
-            _machineState=0;
+            _machineState=1;
 
-        } else if (_machineState==4) {
+        } else if (_machineState==5) {
             following = false;
             ttsSay( stopFollow );
             //yarp::os::Time::delay(0.5);
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STOP_FOLLOWING);
+            outCmdArmPort->write(cmd);
             outCmdHeadPort->write(cmd);
-            _machineState=2;
+            _machineState=3;
 
         } else {
             ttsSay( yarp::os::ConstString("ANOMALY") );
-            _machineState=0;
+            _machineState=1;
         }
     }
 }
@@ -149,7 +159,7 @@ char position = '0'; //-- char position (l = left, c = center, r = right)
                 yarp::os::Bottle cmd;
                 cmd.addVocab(VOCAB_STATE_SIGNALIZE_LEFT);
                 outCmdArmPort->write(cmd);
-                yarp::os::Time::delay(3);
+                yarp::os::Time::delay(5);
                 ttsSay( onTheLeft );
                 position = 'l';
             }
@@ -157,7 +167,7 @@ char position = '0'; //-- char position (l = left, c = center, r = right)
                 yarp::os::Bottle cmd;
                 cmd.addVocab(VOCAB_STATE_SIGNALIZE_RIGHT);
                 outCmdArmPort->write(cmd);
-                yarp::os::Time::delay(3);
+                yarp::os::Time::delay(5);
                 ttsSay( onTheRight );
                 position = 'r';
             }
@@ -207,6 +217,7 @@ bool StateMachine::setLanguage(std::string language)
     if("english" == language)
     {
         //-- recognition sentences
+        hiTeo = std::string ("hi teo");
         followMe = std::string ("follow me");
         myNameIs = std::string ("my name is");
         stopFollowing = std::string ("stop following");
@@ -216,8 +227,9 @@ bool StateMachine::setLanguage(std::string language)
     else if("spanish" == language)
     {
         //-- frases de reconociomiento
+        hiTeo = std::string ("hola teo");
         followMe = std::string ("sigueme");
-        myNameIs = std::string ("mi nombre es");
+        myNameIs = std::string ("me llamo");
         stopFollowing = std::string ("para");
 
         return true;
