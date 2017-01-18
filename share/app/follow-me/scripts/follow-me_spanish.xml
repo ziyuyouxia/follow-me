@@ -1,5 +1,5 @@
 <application>
-<name>follow-me App</name>
+<name>follow-me_spanish_App</name>
     <module>
         <name>followMeDialogueManager</name>
         <parameters>--language spanish</parameters>
