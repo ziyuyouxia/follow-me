@@ -73,7 +73,9 @@ bool FollowMeHeadExecution::interruptModule() {
     printf("FollowMeHeadExecution closing...\n");
     inCvPort.disableCallback();
     inCvPort.interrupt();
+    inDialoguePort.interrupt();
     inCvPort.close();
+    inDialoguePort.close();
     return true;
 }
 

@@ -114,11 +114,17 @@ bool FollowMeDialogueManager::updateModule() {
 
 bool FollowMeDialogueManager::interruptModule() {
     printf("FollowMeDialogueManager closing...\n");
-    inSrPort.interrupt();
+    outCmdHeadPort.interrupt();
+    outCmdArmPort.interrupt();
     outTtsPort.interrupt();
+    outSrecPort.interrupt();
+    inSrPort.interrupt();
     stateMachine.stop();
-    inSrPort.close();
+    outCmdHeadPort.close();
+    outCmdArmPort.close();
     outTtsPort.close();
+    outTtsPort.close();
+    inSrPort.close();
     return true;
 }
 
