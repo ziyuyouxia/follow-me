@@ -1,4 +1,4 @@
-# follow-me: a robotic face following demo
+# follow-me: a robotic face following and arm waving demo
 
 How to run the demo: [Spanish guide](http://robots.uc3m.es/index.php/Procedimiento_Demos)
 
