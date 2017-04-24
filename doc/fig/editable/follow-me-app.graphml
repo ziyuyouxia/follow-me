@@ -63,7 +63,7 @@
           <data key="d6">
             <y:GenericNode configuration="com.yworks.entityRelationship.attribute">
               <y:Geometry height="57.37537764350475" width="213.18227593152085" x="-995.2185194997796" y="884.6095671261326"/>
-              <y:Fill color="#B7C9E3" color2="#B7C9E3" transparent="false"/>
+              <y:Fill color="#CCFFCC" color2="#CCFFCC" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="136.57421875" x="38.30402859076048" y="19.703313821752317">speechRecognition.py<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
@@ -82,10 +82,10 @@
           <data key="d6">
             <y:GenericNode configuration="com.yworks.entityRelationship.attribute">
               <y:Geometry height="57.37537764350475" width="213.18227593152085" x="-752.0362435682588" y="884.6095671261323"/>
-              <y:Fill color="#B7C9E3" color2="#B7C9E3" transparent="false"/>
+              <y:Fill color="#D0D0D0" color2="#D0D0D0" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="104.916015625" x="54.13313015326037" y="12.718938821752317">yarpdev
-(OpenNI2Server)<y:LabelModel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="104.998046875" x="54.09211452826037" y="12.718938821752317">yarpdev --device
+OpenNI2Server<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
                 </y:LabelModel>
                 <y:ModelParameter>
@@ -142,7 +142,7 @@
           <data key="d6">
             <y:GenericNode configuration="com.yworks.entityRelationship.attribute">
               <y:Geometry height="57.37537764350475" width="213.18227593152085" x="-453.2703958864394" y="884.6095671261323"/>
-              <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
+              <y:Fill color="#D0D0D0" color2="#D0D0D0" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="58.638671875" x="77.27180202826042" y="19.703313821752317">yarpview<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
@@ -180,9 +180,9 @@
           <data key="d6">
             <y:GenericNode configuration="com.yworks.entityRelationship.attribute">
               <y:Geometry height="57.37537764350475" width="213.18227593152085" x="79.87189998937964" y="884.6095671261326"/>
-              <y:Fill color="#B7C9E3" color2="#B7C9E3" transparent="false"/>
+              <y:Fill color="#CCFFCC" color2="#CCFFCC" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="102.712890625" x="55.234692653260424" y="12.718938821752317">launchHeadYarp
+              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="31.9375" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="99.02734375" x="57.077466090760424" y="12.718938821752317">yarpdev
 --device Espeak<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
                 </y:LabelModel>
@@ -259,7 +259,7 @@
           <data key="d6">
             <y:GenericNode configuration="com.yworks.entityRelationship.attribute">
               <y:Geometry height="57.37537764350475" width="213.18227593152085" x="-469.01233949167596" y="670.8389973564954"/>
-              <y:Fill color="#FFD8EA" color2="#FFD8EB" transparent="false"/>
+              <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="147.759765625" x="32.711255153260424" y="19.703313821752317">followMeHeadExecution<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
@@ -278,7 +278,7 @@
           <data key="d6">
             <y:GenericNode configuration="com.yworks.entityRelationship.attribute">
               <y:Geometry height="57.37537764350475" width="213.18227593152085" x="-206.9653087678198" y="670.8389973564954"/>
-              <y:Fill color="#FFD8EB" color2="#FFD8EB" transparent="false"/>
+              <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="141.21484375" x="35.983716090760424" y="19.703313821752317">followMeArmExecution<y:LabelModel>
                   <y:SmartNodeLabelModel distance="4.0"/>
@@ -357,7 +357,7 @@
     <node id="n4">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="183.90281249999987" width="239.0" x="97.39636697114202" y="170.69099981117893"/>
+          <y:Geometry height="216.68945902567918" width="239.0" x="97.39636697114202" y="164.7268230740185"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="bottom" visible="true" width="48.291015625" x="90.8544921875" y="-21.96875">Legend</y:NodeLabel>
@@ -367,10 +367,10 @@
     <node id="n5">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="25.902812499999868" width="213.18227593152085" x="108.21409103962117" y="185.49662481117912"/>
+          <y:Geometry height="25.902812499999868" width="213.18227593152085" x="110.61772900538159" y="175.98139633685855"/>
           <y:Fill color="#FFFFFF" color2="#FFFFFF" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="204.578125" x="4.302075465760424" y="3.967031249999934">kinematics-dynamics @ localhost<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="62.79296875" x="75.19465359076042" y="3.967031249999934">follow-me<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -383,10 +383,10 @@
     <node id="n6">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="25.902812499999868" width="212.55727593152085" x="108.21409103962117" y="227.56599981117893"/>
+          <y:Geometry height="25.902812499999868" width="212.55727593152085" x="110.61772900538159" y="218.05077133685836"/>
           <y:Fill color="#FFD8EB" color2="#FFD8EB" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="183.5546875" x="14.501294215760424" y="3.967031249999934">yarp-devices @ /manipulation<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="81.00390625" x="65.77668484076042" y="3.967031249999934">yarp-devices<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -399,10 +399,10 @@
     <node id="n7">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="25.902812499999868" width="213.18227593152085" x="108.21409103962117" y="269.63537481117874"/>
+          <y:Geometry height="25.902812499999868" width="213.18227593152085" x="110.61772900538159" y="260.12014633685817"/>
           <y:Fill color="#CCFFCC" color2="#CCFFCC" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="171.30859375" x="20.936841090760424" y="3.967031249999934">yarp-devices @ /locomotion<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="46.837890625" x="83.17219265326042" y="3.967031249999934">speech<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -415,10 +415,26 @@
     <node id="n8">
       <data key="d6">
         <y:GenericNode configuration="com.yworks.flowchart.process">
-          <y:Geometry height="25.902812499999868" width="213.18227593152085" x="108.21409103962117" y="312.8141248111788"/>
+          <y:Geometry height="25.902812499999868" width="213.18227593152085" x="110.61772900538159" y="303.2988963368582"/>
           <y:Fill color="#B7C9E3" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="92.599609375" x="60.291333278260424" y="3.967031249999934">vision @ /head<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="38.96875" x="87.10676296576042" y="3.967031249999934">vision<y:LabelModel>
+              <y:SmartNodeLabelModel distance="4.0"/>
+            </y:LabelModel>
+            <y:ModelParameter>
+              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
+            </y:ModelParameter>
+          </y:NodeLabel>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n9">
+      <data key="d6">
+        <y:GenericNode configuration="com.yworks.flowchart.process">
+          <y:Geometry height="25.902812499999868" width="213.18227593152085" x="110.61772900538159" y="346.47764633685824"/>
+          <y:Fill color="#D0D0D0" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="31.005859375" x="91.08820827826042" y="3.967031249999934">yarp<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
@@ -556,6 +572,28 @@
           <y:Arrows source="none" target="standard"/>
           <y:Arc height="169.5000762939453" ratio="1.0" type="fixedRatio"/>
         </y:ArcEdge>
+      </data>
+    </edge>
+    <edge id="e11" source="n9" target="n4">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="-2.4036379657604243" sy="-11.267242494335221" tx="-2.0911379657604243" ty="36.27196327416948"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e12" source="n9" target="n4">
+      <data key="d9"/>
+      <data key="d10">
+        <y:PolyLineEdge>
+          <y:Path sx="-9.726430531297012" sy="0.0" tx="-9.413930531297012" ty="106.56446941087609"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="none" target="standard"/>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
       </data>
     </edge>
   </graph>
