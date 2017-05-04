@@ -181,6 +181,7 @@ void FollowMeArmExecution::run()
             {
                 std::vector<double> leftArmQ(7,0.0);
                 std::vector<double> rightArmQ(7,0.0);
+                leftArmQ[1] = 4;    // Tray security position
                 rightArmQ[0] = 45;
                 rightArmQ[2] = 20;
                 rightArmQ[3] = 80;
@@ -189,6 +190,7 @@ void FollowMeArmExecution::run()
             {
                 std::vector<double> leftArmQ(7,0.0);
                 std::vector<double> rightArmQ(7,0.0);
+                leftArmQ[1] = 4;    // Tray security position
                 rightArmQ[0] = 45;
                 rightArmQ[2] = -20;
                 rightArmQ[3] = 80;
@@ -197,6 +199,7 @@ void FollowMeArmExecution::run()
             {
                 std::vector<double> leftArmQ(7,0.0);
                 std::vector<double> rightArmQ(7,0.0);
+                leftArmQ[1] = 4;    // Tray security position
                 rightArmQ[0] = 45;
                 rightArmQ[2] = 20;
                 rightArmQ[3] = 80;
@@ -210,6 +213,7 @@ void FollowMeArmExecution::run()
             {
                 std::vector<double> leftArmQ(7,0.0);
                 std::vector<double> rightArmQ(7,0.0);
+                leftArmQ[1] = 4;    // Tray security position
                 rightArmQ[0] = 50;
                 rightArmQ[1] = -20;
                 rightArmQ[2] = -10;
@@ -221,6 +225,7 @@ void FollowMeArmExecution::run()
             {
                 std::vector<double> leftArmQ(7,0.0);
                 std::vector<double> rightArmQ(7,0.0);
+                leftArmQ[1] = 4;    // Tray security position
                 rightArmQ[0] = 50;
                 rightArmQ[1] = -20;
                 rightArmQ[2] = -10;
@@ -264,7 +269,7 @@ void FollowMeArmExecution::run()
             {
                 std::vector<double> leftArmQ(7,0.0);
                 std::vector<double> rightArmQ(7,0.0);
-
+                leftArmQ[1] = 4;    // Tray security position
                 armJointsMoveAndWait(leftArmQ,rightArmQ);
             }
             break;
