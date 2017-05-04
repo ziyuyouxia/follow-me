@@ -98,8 +98,17 @@ bool FollowMeArmExecution::updateModule()
 
 bool FollowMeArmExecution::armJointsMoveAndWait(std::vector<double>& leftArmQ, std::vector<double> &rightArmQ)
 {
+    // -- Configuring Speeds and Accelerations
+    std::vector<double> armSpeeds(7,30.0);
+    std::vector<double> armAccelerations(7,30.0);
+
+    rightArmIPositionControl->setRefSpeeds(armSpeeds.data());
+    leftArmIPositionControl->setRefSpeeds(armSpeeds.data());
+    rightArmIPositionControl->setRefAccelerations(armAccelerations.data());
+    leftArmIPositionControl->setRefAccelerations(armAccelerations.data());
     rightArmIPositionControl->positionMove( rightArmQ.data() );
     leftArmIPositionControl->positionMove( leftArmQ.data() );
+
     //printf("Waiting for right arm.");
     bool doneRight = false;
     bool doneLeft = false;
@@ -159,6 +168,7 @@ void FollowMeArmExecution::run()
                 leftArmQ[0] = 20;
                 leftArmQ[1] = 5;
                 std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[1] = -5;
                 rightArmQ[0] = 20;
                 armJointsMoveAndWait(leftArmQ,rightArmQ);
                 phase = false;
@@ -170,6 +180,7 @@ void FollowMeArmExecution::run()
                 leftArmQ[0] = -20;
                 leftArmQ[1] = 5;
                 std::vector<double> rightArmQ(7,0.0);
+                rightArmQ[1] = -5;
                 rightArmQ[0] = -20;
                 armJointsMoveAndWait(leftArmQ,rightArmQ);
                 phase = true;
