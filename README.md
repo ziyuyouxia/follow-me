@@ -14,7 +14,7 @@ How to run the demo: [Spanish guide](http://robots.uc3m.es/index.php/Procedimien
 
 ## Installation
 
-Installation instructions for installing from source can be found [here]( /doc/follow_me_install.md ).
+Installation instructions for installing from source can be found [here]( /doc/follow-me-install.md ).
 
 ## Contributing
 
