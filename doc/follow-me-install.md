@@ -18,6 +18,6 @@ git clone https://github.com/roboticslab-uc3m/follow-me.git  # Download follow-m
 cd follow-me; mkdir build; cd build; cmake ..  # Configure the follow-me demostration software
 make -j$(nproc)  # Compile
 sudo make install  # Install :-)
-cp ../scripts/gnome/follow-me.desktop $HOME/Desktop
+cp ../scripts/gnome/follow-me.desktop $HOME/Desktop  # Nice desktop icon. May require some updates to point to path and icon.
 ```
-For additional options use ccmake instead of cmake.
+For additional options use `ccmake` instead of `cmake`.
