@@ -37,15 +37,19 @@ private:
      /** RFModule updateModule. */
      virtual bool updateModule();
 
-     /** Left Arm Device */
-     yarp::dev::PolyDriver leftArmDevice;
-     /** Left Arm Position Interface */
-     yarp::dev::IPositionControl *leftArmIPositionControl;
+    /** Left Arm Device */
+    yarp::dev::PolyDriver leftArmDevice;
+    /** Left Arm ControlMode2 Interface */
+    yarp::dev::IControlMode2 *leftArmIControlMode2;
+   /** Left Arm PositionControl2 Interface */
+    yarp::dev::IPositionControl2 *leftArmIPositionControl2;
 
      /** Right Arm Device */
      yarp::dev::PolyDriver rightArmDevice;
-     /** Right Arm Position Interface */
-     yarp::dev::IPositionControl *rightArmIPositionControl;
+     /** Right Arm ControlMode2 Interface */
+     yarp::dev::IControlMode2 *rightArmIControlMode2;
+     /** Right Arm PositionControl2 Interface */
+      yarp::dev::IPositionControl2 *rightArmIPositionControl2;
 
      /** Phase of arm swing movement */
      bool phase;

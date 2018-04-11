@@ -27,8 +27,8 @@ class InCvPort : public BufferedPort<Bottle> {
 
         InCvPort(): follow(false) {}
 
-        void setIPositionControl(yarp::dev::IPositionControl *iPositionControl) {
-            this->iPositionControl = iPositionControl;
+        void setIPositionControl2(yarp::dev::IPositionControl2 *iPositionControl2) {
+            this->iPositionControl2 = iPositionControl2;
         }
 
         void setFollow(bool value);
@@ -41,7 +41,7 @@ protected:
         virtual void onRead(Bottle& b);
 
         yarp::dev::IEncoders * iEncoder;
-        yarp::dev::IPositionControl *iPositionControl;
+        yarp::dev::IPositionControl2 *iPositionControl2;
 
 
 };

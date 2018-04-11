@@ -35,15 +35,23 @@ bool FollowMeHeadExecution::configure(ResourceFinder &rf) {
         printf("head remote_controlboard instantiation not worked.\n");
         return false;
     }
-    if( ! headDevice.view(iPositionControl) ) {
-        printf("view(iPositionControl) not worked.\n");
+
+    if (!headDevice.view(headIControlMode2) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
+        printf("[warning] Problems acquiring headIControlMode2 interface\n");
         return false;
-    }
+    } else printf("[success] Acquired headIControlMode2 interface\n");
+
+
+    if (!headDevice.view(headIPositionControl2) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring headIPositionControl2 interface\n");
+        return false;
+    } else printf("[success] Acquired headIPositionControl2 interface\n");
+
     if( ! headDevice.view(iEncoders) ) {
         printf("view(iEncoders) not worked.\n");
         return false;
     }
-    inCvPort.setIPositionControl(iPositionControl);
+    inCvPort.setIPositionControl2(headIPositionControl2);
     inDialoguePortProcessor.setIEncoders(iEncoders);
 
     //-----------------OPEN LOCAL PORTS------------//
