@@ -24,6 +24,7 @@ bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
 
     std::string followMeArmExecutionStr("/followMeArmExecution");
 
+    // ------ LEFT ARM -------
     yarp::os::Property leftArmOptions;
     leftArmOptions.put("device","remote_controlboard");
     leftArmOptions.put("remote",robot+"/leftArm");
@@ -36,12 +37,17 @@ bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
       return false;
     }
 
-    if ( ! leftArmDevice.view(leftArmIPositionControl) ) {
+    if (!leftArmDevice.view(leftArmIControlMode2) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
         printf("[warning] Problems acquiring leftArmPos interface\n");
         return false;
     } else printf("[success] Acquired leftArmPos interface\n");
-    leftArmIPositionControl->setPositionMode();
 
+    if (!leftArmDevice.view(leftArmIPositionControl2) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring leftArmIControlMode2 interface\n");
+        return false;
+    } else printf("[success] Acquired leftArmIControlMode2 interface\n");
+
+    // ------ RIGHT ARM -------
     yarp::os::Property rightArmOptions;
     rightArmOptions.put("device","remote_controlboard");
     rightArmOptions.put("remote",robot+"/rightArm");
@@ -54,11 +60,10 @@ bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
       return false;
     }
 
-    if ( ! rightArmDevice.view(rightArmIPositionControl) ) {
+    if ( ! rightArmDevice.view(rightArmIPositionControl2) ) {
         printf("[warning] Problems acquiring rightArmPos interface\n");
         return false;
     } else printf("[success] Acquired rightArmPos interface\n");
-    rightArmIPositionControl->setPositionMode();
 
     phase = false;
 
@@ -102,25 +107,25 @@ bool FollowMeArmExecution::armJointsMoveAndWait(std::vector<double>& leftArmQ, s
     std::vector<double> armSpeeds(7,30.0);
     std::vector<double> armAccelerations(7,30.0);
 
-    rightArmIPositionControl->setRefSpeeds(armSpeeds.data());
-    leftArmIPositionControl->setRefSpeeds(armSpeeds.data());
-    rightArmIPositionControl->setRefAccelerations(armAccelerations.data());
-    leftArmIPositionControl->setRefAccelerations(armAccelerations.data());
-    rightArmIPositionControl->positionMove( rightArmQ.data() );
-    leftArmIPositionControl->positionMove( leftArmQ.data() );
+    rightArmIPositionControl2->setRefSpeeds(armSpeeds.data());
+    leftArmIPositionControl2->setRefSpeeds(armSpeeds.data());
+    rightArmIPositionControl2->setRefAccelerations(armAccelerations.data());
+    leftArmIPositionControl2->setRefAccelerations(armAccelerations.data());
+    rightArmIPositionControl2->positionMove( rightArmQ.data() );
+    leftArmIPositionControl2->positionMove( leftArmQ.data() );
 
     //printf("Waiting for right arm.");
     bool doneRight = false;
     bool doneLeft = false;
     while((!doneRight)&&(!Thread::isStopping()))
     {
-        rightArmIPositionControl->checkMotionDone(&doneRight);        
+        rightArmIPositionControl2->checkMotionDone(&doneRight);
         yarp::os::Time::delay(0.1);
     }
 
     while((!doneLeft)&&(!Thread::isStopping()))
     {
-         leftArmIPositionControl->checkMotionDone(&doneLeft);
+         leftArmIPositionControl2->checkMotionDone(&doneLeft);
           yarp::os::Time::delay(0.1);
     }
 

@@ -34,8 +34,14 @@ class FollowMeHeadExecution : public RFModule {
         RpcServer inDialoguePort;
         InDialoguePortProcessor inDialoguePortProcessor; // old (InSrPort)
         InCvPort inCvPort;
+
+        /** Head Device */
         yarp::dev::PolyDriver headDevice;
-        yarp::dev::IPositionControl *iPositionControl;
+        /** Head ControlMode2 Interface */
+        yarp::dev::IControlMode2 *headIControlMode2;
+        /** Head PositionControl2 Interface */
+        yarp::dev::IPositionControl2 *headIPositionControl2;
+
         yarp::dev::IEncoders *iEncoders;
 
         bool interruptModule();
