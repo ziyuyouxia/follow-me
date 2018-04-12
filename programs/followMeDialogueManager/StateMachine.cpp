@@ -15,7 +15,8 @@ bool StateMachine::threadInit() {
 
 /************************************************************************/
 
-void StateMachine::run() {
+void StateMachine::run() {  
+
     ttsSay( presentation1 );
     bool following = false;
 
@@ -28,7 +29,11 @@ void StateMachine::run() {
 
          if(_machineState == 1)
          {
-            ttsSay( askName );  //-- , please tell me
+            // -- mute mic
+            bRec.addString("setMic mute");
+            outSrecPort->write(bRec);
+
+            ttsSay( askName );
             yarp::os::Bottle cmd;
             cmd.addVocab(VOCAB_STATE_SALUTE);
             outCmdArmPort->write(cmd);
@@ -36,6 +41,10 @@ void StateMachine::run() {
          }
          else if(_machineState == 2)
          {
+            // -- unmute mic before listening
+            bRec.addString("setMic unmute");
+            outSrecPort->write(bRec);
+
             yarp::os::ConstString inStr = asrListen();            
             // Blocking
             _inStrState1 = inStr;
@@ -44,6 +53,10 @@ void StateMachine::run() {
 
             else if((_inStrState1.find(myNameIs) != yarp::os::ConstString::npos))
             {
+                // -- mute mic
+                bRec.addString("setMic mute");
+                outSrecPort->write(bRec);
+
                 switch (sentence) {
                 case 'a':
                     ttsSay( answer1 );
@@ -69,7 +82,11 @@ void StateMachine::run() {
             }
          }
         else if(_machineState==3)
-        {
+        {       
+            // -- unmute mic before listening
+            bRec.addString("setMic unmute");
+            outSrecPort->write(bRec);
+
             yarp::os::ConstString inStr;
             if(following) inStr = asrListenWithPeriodicWave();
             else inStr = asrListen();
@@ -82,6 +99,10 @@ void StateMachine::run() {
             else _machineState=3;
 
         } else if (_machineState==4) {
+            // -- mute mic
+            bRec.addString("setMic mute");
+            outSrecPort->write(bRec);
+
             following = true;
             ttsSay( okFollow );            
             //yarp::os::Time::delay(0.5);
@@ -90,7 +111,12 @@ void StateMachine::run() {
             outCmdHeadPort->write(cmd);
             _machineState=1;
 
+
         } else if (_machineState==5) {
+             // -- mute mic
+             bRec.addString("setMic mute");
+             outSrecPort->write(bRec);
+
             following = false;
             ttsSay( stopFollow );
             //yarp::os::Time::delay(0.5);
@@ -208,6 +234,12 @@ void StateMachine::setOutCmdArmPort(yarp::os::RpcClient* outCmdPort) {
 
 void StateMachine::setOutTtsPort(yarp::os::RpcClient* outTtsPort) {
     this->outTtsPort = outTtsPort;
+}
+
+/************************************************************************/
+
+void StateMachine::setOutSrecPort(yarp::os::RpcClient* outSrecPort) {
+    this->outSrecPort = outSrecPort;
 }
 
 /************************************************************************/

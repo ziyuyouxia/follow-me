@@ -37,6 +37,7 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     stateMachine.setOutCmdHeadPort(&outCmdHeadPort);
     stateMachine.setOutCmdArmPort(&outCmdArmPort);
     stateMachine.setOutTtsPort(&outTtsPort);
+    stateMachine.setOutSrecPort(&outSrecPort);
     stateMachine.setInSrPort(&inSrPort);
 
     while(1){
@@ -51,7 +52,6 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
         yarp::os::Time::delay(0.5);
     }
 
-    yarp::os::Bottle bOut, bRec;
 
     // -- Speaking
     /*
