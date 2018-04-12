@@ -37,6 +37,8 @@ protected:
     yarp::os::RpcClient *outCmdArmPort;
 
     yarp::os::RpcClient *outTtsPort;
+    yarp::os::RpcClient *outSrecPort;
+
     yarp::os::ConstString _inStrState1;
 
     int _machineState;
@@ -63,6 +65,9 @@ protected:
     std::string onTheLeft;
     std::string onTheRight;
     std::string onTheCenter;
+
+    // microphone variables
+    yarp::os::Bottle bOut, bRec;  // bottle out (speech) / bottle recognise
 
 
     void ttsSay(const yarp::os::ConstString& sayConstString);
@@ -105,6 +110,9 @@ public:
 
     /** Register an output Port for tts. */
     void setOutTtsPort(yarp::os::RpcClient *outTtsPort);
+
+    /** Register an output Port to configure Speech Recognition. */
+    void setOutSrecPort(yarp::os::RpcClient* outSrecPort);
 
     /** set language in speechRecognition port */
     bool setLanguage(std::string language);
