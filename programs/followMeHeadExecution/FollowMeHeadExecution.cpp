@@ -51,6 +51,16 @@ bool FollowMeHeadExecution::configure(ResourceFinder &rf) {
         printf("view(iEncoders) not worked.\n");
         return false;
     }
+
+    //-- Set control mode
+    int headAxes;
+    headIPositionControl2->getAxes(&headAxes);
+    std::vector<int> headControlModes(headAxes,VOCAB_CM_POSITION);
+    if(! headIControlMode2->setControlModes( headControlModes.data() )){
+        printf("[warning] Problems setting position control mode of: head\n");
+        return false;
+    }
+
     inCvPort.setIPositionControl2(headIPositionControl2);
     inDialoguePortProcessor.setIEncoders(iEncoders);
 

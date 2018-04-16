@@ -38,14 +38,14 @@ bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
     }
 
     if (!leftArmDevice.view(leftArmIControlMode2) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
-        printf("[warning] Problems acquiring leftArmPos interface\n");
-        return false;
-    } else printf("[success] Acquired leftArmPos interface\n");
-
-    if (!leftArmDevice.view(leftArmIPositionControl2) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
         printf("[warning] Problems acquiring leftArmIControlMode2 interface\n");
         return false;
     } else printf("[success] Acquired leftArmIControlMode2 interface\n");
+
+    if (!leftArmDevice.view(leftArmIPositionControl2) ) { // connecting our device with "position control 2" interface (configuring our device: speed, acceleration... and sending joint positions)
+        printf("[warning] Problems acquiring leftArmIPositionControl2 interface\n");
+        return false;
+    } else printf("[success] Acquired leftArmIPositionControl2 interface\n");
 
     // ------ RIGHT ARM -------
     yarp::os::Property rightArmOptions;
@@ -60,10 +60,34 @@ bool FollowMeArmExecution::configure(yarp::os::ResourceFinder &rf)
       return false;
     }
 
-    if ( ! rightArmDevice.view(rightArmIPositionControl2) ) {
-        printf("[warning] Problems acquiring rightArmPos interface\n");
+    if (!rightArmDevice.view(rightArmIControlMode2) ) { // connecting our device with "control mode 2" interface, initializing which control mode we want (position)
+        printf("[warning] Problems acquiring rightArmIControlMode2 interface\n");
         return false;
-    } else printf("[success] Acquired rightArmPos interface\n");
+    } else printf("[success] Acquired rightArmIControlMode2 interface\n");
+
+
+    if ( ! rightArmDevice.view(rightArmIPositionControl2) ) {
+        printf("[warning] Problems acquiring rightArmIPositionControl2 interface\n");
+        return false;
+    } else printf("[success] Acquired rightArmIPositionControl2 interface\n");
+
+    //-- Set control modes for both arms
+
+    int leftArmAxes;
+    leftArmIPositionControl2->getAxes(&leftArmAxes);
+    std::vector<int> leftArmControlModes(leftArmAxes,VOCAB_CM_POSITION);
+    if(! leftArmIControlMode2->setControlModes( leftArmControlModes.data() )){
+        printf("[warning] Problems setting position control mode of: left-arm\n");
+        return false;
+    }
+
+    int rightArmAxes;
+    rightArmIPositionControl2->getAxes(&rightArmAxes);
+    std::vector<int> rightArmControlModes(rightArmAxes,VOCAB_CM_POSITION);
+    if(! rightArmIControlMode2->setControlModes(rightArmControlModes.data())){
+        printf("[warning] Problems setting position control mode of: right-arm\n");
+        return false;
+    }
 
     phase = false;
 
@@ -104,8 +128,11 @@ bool FollowMeArmExecution::updateModule()
 bool FollowMeArmExecution::armJointsMoveAndWait(std::vector<double>& leftArmQ, std::vector<double> &rightArmQ)
 {
     // -- Configuring Speeds and Accelerations
-    std::vector<double> armSpeeds(7,30.0);
-    std::vector<double> armAccelerations(7,30.0);
+    int armAxes;
+    rightArmIPositionControl2->getAxes(&armAxes); // number of axes is the same in both arms
+
+    std::vector<double> armSpeeds(armAxes,30.0);
+    std::vector<double> armAccelerations(armAxes,30.0);
 
     rightArmIPositionControl2->setRefSpeeds(armSpeeds.data());
     leftArmIPositionControl2->setRefSpeeds(armSpeeds.data());
