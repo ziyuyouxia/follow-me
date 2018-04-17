@@ -91,6 +91,11 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     outTtsPort.write(bOut);
     outSrecPort.write(bRec);
 
+    // clean yarp bottles
+    bRec.clear();
+    bOut.clear();
+
+    // set functions
     stateMachine.setLanguage(language);
     stateMachine.setSpeakLanguage(language);
 
