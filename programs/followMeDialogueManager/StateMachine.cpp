@@ -32,6 +32,7 @@ void StateMachine::run() {
             // -- mute mic
             bRec.addString("setMic mute");
             outSrecPort->write(bRec);
+            bRec.clear();
 
             ttsSay( askName );
             yarp::os::Bottle cmd;
@@ -44,6 +45,7 @@ void StateMachine::run() {
             // -- unmute mic before listening
             bRec.addString("setMic unmute");
             outSrecPort->write(bRec);
+            bRec.clear();
 
             yarp::os::ConstString inStr = asrListen();            
             // Blocking
@@ -56,6 +58,7 @@ void StateMachine::run() {
                 // -- mute mic
                 bRec.addString("setMic mute");
                 outSrecPort->write(bRec);
+                bRec.clear();
 
                 switch (sentence) {
                 case 'a':
@@ -86,6 +89,7 @@ void StateMachine::run() {
             // -- unmute mic before listening
             bRec.addString("setMic unmute");
             outSrecPort->write(bRec);
+            bRec.clear();
 
             yarp::os::ConstString inStr;
             if(following) inStr = asrListenWithPeriodicWave();
@@ -102,6 +106,7 @@ void StateMachine::run() {
             // -- mute mic
             bRec.addString("setMic mute");
             outSrecPort->write(bRec);
+            bRec.clear();
 
             following = true;
             ttsSay( okFollow );            
@@ -113,9 +118,10 @@ void StateMachine::run() {
 
 
         } else if (_machineState==5) {
-             // -- mute mic
-             bRec.addString("setMic mute");
-             outSrecPort->write(bRec);
+            // -- mute mic
+            bRec.addString("setMic mute");
+            outSrecPort->write(bRec);
+            bRec.clear();
 
             following = false;
             ttsSay( stopFollow );
