@@ -66,8 +66,9 @@ protected:
     std::string onTheRight;
     std::string onTheCenter;
 
-    // microphone variables
-    yarp::os::Bottle bOut, bRec;  // bottle out (speech) / bottle recognise
+    // bTtsOut     -> to config or send tts commands
+    // bSpRecOut   -> to config or send SpeechRecognition commands
+    yarp::os::Bottle bTtsOut, bSpRecOut;
 
 
     void ttsSay(const yarp::os::ConstString& sayConstString);

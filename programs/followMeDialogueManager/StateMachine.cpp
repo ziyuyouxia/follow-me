@@ -117,24 +117,25 @@ void StateMachine::run() {
 void StateMachine::ttsSay(const yarp::os::ConstString& sayConstString) {
 
     // -- mute microphone
-    bRec.addString("setMic");
-    bRec.addString("mute");
-    outSrecPort->write(bRec);
-    bRec.clear();
+    bSpRecOut.clear();
+    bSpRecOut.addString("setMic");
+    bSpRecOut.addString("mute");
+    outSrecPort->write(bSpRecOut);
 
     // -- speaking
-    yarp::os::Bottle bOut, bRes;
-    bOut.addString("say");
-    bOut.addString(sayConstString);
-    outTtsPort->write(bOut,bRes);
+    yarp::os::Bottle bRes;
+    bTtsOut.clear();
+    bTtsOut.addString("say");
+    bTtsOut.addString(sayConstString);
+    outTtsPort->write(bTtsOut,bRes);
     printf("[StateMachine] Said: %s [%s]\n", sayConstString.c_str(), bRes.toString().c_str());
-    yarp::os::Time::delay(1);
+    yarp::os::Time::delay(0.5);
 
     // -- unmute microphone
-    bRec.addString("setMic");
-    bRec.addString("unmute");
-    outSrecPort->write(bRec);
-    bRec.clear();
+    bSpRecOut.clear();
+    bSpRecOut.addString("setMic");
+    bSpRecOut.addString("unmute");
+    outSrecPort->write(bSpRecOut);
 
     return;
 }
@@ -165,6 +166,8 @@ char position = '0'; //-- char position (l = left, c = center, r = right)
 
         // It is reading the encoder position all the time
         yarp::os::Bottle cmd, encValue;
+        cmd.clear();
+        encValue.clear();
         cmd.addVocab(VOCAB_GET_ENCODER_POSITION);
         outCmdHeadPort->write(cmd, encValue);
         printf("EncValue -> %f\n", encValue.get(0).asDouble());

@@ -53,34 +53,25 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
     }
 
 
-    // -- Speaking
-    /*
-    bOut.addString("setLanguage");
-    bOut.addString("mb-en1");   
-    outTtsPort.write(bOut);
-
-    // -- Hearing
-    bRec.addString("setDictionary");
-    bRec.addString("follow-me");
-    bRec.addString("english"); // -- This can be changed in the future (with spanish)
-    outSrecPort.write(bRec);
-*/
-
     //--------------------------
+    // cleaning yarp bottles
+    bTtsOut.clear();
+    bSpRecOut.clear();
 
-    bOut.addString("setLanguage");
-    bRec.addString("setDictionary");
-    bRec.addString("follow-me");
+
+    bTtsOut.addString("setLanguage");
+    bSpRecOut.addString("setDictionary");
+    bSpRecOut.addString("follow-me");
 
     if( language == "english" )
     {
-        bOut.addString("mb-en1");
-        bRec.addString(language );
+        bTtsOut.addString("mb-en1");
+        bSpRecOut.addString(language );
     }
     else if ( language == "spanish" )
     {
-        bOut.addString("mb-es1");
-        bRec.addString(language); // -- cambiar a "language" cuando tengamos reconocimiento en español
+        bTtsOut.addString("mb-es1");
+        bSpRecOut.addString(language); // -- cambiar a "language" cuando tengamos reconocimiento en español
     }
     else
     {
@@ -88,12 +79,8 @@ bool FollowMeDialogueManager::configure(yarp::os::ResourceFinder &rf) {
         return false;
     }
 
-    outTtsPort.write(bOut);
-    outSrecPort.write(bRec);
-
-    // clean yarp bottles
-    bRec.clear();
-    bOut.clear();
+    outTtsPort.write(bTtsOut);
+    outSrecPort.write(bSpRecOut);
 
     // set functions
     stateMachine.setLanguage(language);
