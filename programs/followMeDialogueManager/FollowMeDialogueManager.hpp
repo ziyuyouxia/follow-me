@@ -18,7 +18,8 @@ namespace teo
  *
  * @brief Dialogue Manager.
  */
-class FollowMeDialogueManager : public yarp::os::RFModule {
+class FollowMeDialogueManager : public yarp::os::RFModule {    
+
   private:
     StateMachine stateMachine;
     yarp::os::BufferedPort<yarp::os::Bottle> inSrPort;
@@ -26,6 +27,8 @@ class FollowMeDialogueManager : public yarp::os::RFModule {
     yarp::os::RpcClient outSrecPort; // SpeechRecognition port
     yarp::os::RpcClient outCmdHeadPort;
     yarp::os::RpcClient outCmdArmPort;
+
+    yarp::os::Bottle bOut, bRec;  // bottle out (speech) / bottle recognise
 
     bool interruptModule();
     double getPeriod();
