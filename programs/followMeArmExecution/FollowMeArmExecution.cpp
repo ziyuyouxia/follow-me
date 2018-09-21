@@ -130,7 +130,7 @@ bool FollowMeArmExecution::armJointsMoveAndWait(std::vector<double>& leftArmQ, s
     // -- Configuring Speeds and Accelerations
     int armAxes;
     rightArmIPositionControl2->getAxes(&armAxes); // number of axes is the same in both arms
-
+    /*
     std::vector<double> armSpeeds(armAxes,30.0);
     std::vector<double> armAccelerations(armAxes,30.0);
 
@@ -140,7 +140,7 @@ bool FollowMeArmExecution::armJointsMoveAndWait(std::vector<double>& leftArmQ, s
     leftArmIPositionControl2->setRefAccelerations(armAccelerations.data());
     rightArmIPositionControl2->positionMove( rightArmQ.data() );
     leftArmIPositionControl2->positionMove( leftArmQ.data() );
-
+    */
     //printf("Waiting for right arm.");
     bool doneRight = false;
     bool doneLeft = false;
